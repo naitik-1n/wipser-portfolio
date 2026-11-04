@@ -2333,6 +2333,20 @@
         </div>
       </section>
 
+      <section class="portfolio-section chakra-game-section" id="chakra-defense">
+        <header class="section-header-block">
+          <div class="section-tag-row"><span class="section-number">06 // DEFEND THE CYCLE</span></div>
+          <h2 class="section-title serif-font">Chakra Defense</h2>
+          <p class="section-lead">Turn the wheel. Aim the spoke. Keep the cycle alive.</p>
+        </header>
+        <div class="defense-game" id="defenseGame">
+          <div class="defense-hud"><span>CORE INTEGRITY <b id="coreHealth">100%</b></span><span>THREATS CLEARED <b id="threatScore">00</b></span><button id="gameStart" type="button">Start defense</button></div>
+          <canvas id="defenseCanvas" aria-label="Chakra defense game"></canvas>
+          <div class="defense-controls"><span>← / → Rotate chakra</span><span>Space Fire spoke</span><span>Touch: drag to rotate · tap to fire</span></div>
+          <p class="defense-message" id="gameMessage">Incoming forms gather beyond the wheel. Rotate and fire to protect the core.</p>
+        </div>
+      </section>
+
       <!-- Editorial Footer -->
       <footer class="editorial-footer">
         <div class="footer-tribute">
@@ -2355,5 +2369,6 @@
   <!-- Scripts -->
   <script src="portfolio-data.js"></script>
   <script src="app.js"></script>
+  <script src="chakra-game.js"></script>
 </body>
 </html>

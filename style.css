@@ -66,6 +66,18 @@
   padding: 0;
 }
 
+.chakra-game-section { position: relative; z-index: 2; }
+.defense-game { max-width: 900px; margin: 2rem auto 0; border: 1px solid var(--orange-hairline); background: radial-gradient(ellipse at center, #fff 0%, #faf5ed 74%); padding: 1rem; }
+.defense-hud,.defense-controls { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; font: 600 .68rem 'JetBrains Mono',monospace; letter-spacing:.08em; color:var(--text-muted); }
+.defense-hud b { color:var(--orange-deep); margin-left:.4rem; }
+.defense-hud button { border:1px solid var(--orange-border); background:var(--orange-light); color:var(--orange-deep); padding:.65rem 1rem; font:inherit; cursor:pointer; }
+#defenseCanvas { display:block; width:100%; height:min(62vw,520px); min-height:300px; touch-action:none; }
+.defense-controls { justify-content:center; padding:.8rem .3rem; border-top:1px solid var(--hairline); }
+.defense-message { text-align:center; color:var(--text-secondary); font-size:.9rem; padding:.65rem .3rem .2rem; }
+.page-switch-links { display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; padding:1.5rem 1rem; font-size:.85rem; }
+.page-switch-links a { color:var(--orange-deep); text-decoration:none; border-bottom:1px solid var(--orange-border); padding:.35rem 0; }
+.page-switch-links a:hover { color:var(--text-charcoal); }
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;

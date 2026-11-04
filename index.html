@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naitik | Software Engineer & Systems Architect</title>
+  <meta name="description" content="Professional software engineering portfolio inspired by the 24-spoke Konark Chakra and the cyclopean cosmic creation of Nataraja in warm ivory, deep charcoal, soft orange, and solar yellow." />
+  <meta name="theme-color" content="#faf8f5" />
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- GSAP & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- Fullscreen Cosmic Particles Canvas (Dust Inward Swirl & Nataraja Embers) -->
+  <canvas id="cosmicCanvas"></canvas>
+
+  <!-- ======================================================================
+       STAGE 1: LOADING SCREEN WITH SPINNING CHAKRA
+       Spins in center on load -> Decelerates to still -> Click to enter
+       ====================================================================== -->
+  <aside id="intro-overlay" class="intro-screen" aria-label="Loading Screen">
+    <div class="intro-loop-circle loop-1"></div>
+    <div class="intro-loop-circle loop-2"></div>
+    <div class="intro-loop-circle loop-3"></div>
+
+    <div class="intro-header">
+      <div class="intro-badge">
+        <span class="badge-dot"></span>
+        <span>The 24-Spoke Cycle of Creation</span>
+      </div>
+      <h1 class="intro-title serif-font">Cyclopean Architecture</h1>
+      <p class="intro-subtitle">Software Engineering • Scalable Systems • Sacred Order</p>
+    </div>
+
+    <!-- Centered Spinning Chakra on Loading Screen -->
+    <div class="intro-chakra-stage" id="introChakraStage" role="button" tabindex="0" title="Click to enter portfolio">
+      <div class="chakra-portal" id="introChakraPortal">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="chakra-svg" id="introKonarkChakraSvg" width="100%" height="100%">
+  <defs>
+    <!-- Soft Warm Orange & Bright Yellow Gradients -->
+    <linearGradient id="introOutlineOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7b39" />
+      <stop offset="50%" stop-color="#f2541b" />
+      <stop offset="100%" stop-color="#d63b04" />
+    </linearGradient>
+
+    <linearGradient id="introFlameOrangeYellow" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#f2541b" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#ff7b39" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#ffcc00" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="introAccentYellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe600" />
+      <stop offset="100%" stop-color="#ffb700" />
+    </linearGradient>
+  </defs>
+  <g id="introChakraRotator">
+    <!-- Concentric Celestial Loops & Orbits -->
+    <circle cx="400" cy="400" r="392" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.25" stroke-dasharray="3 6" />
+    <circle cx="400" cy="400" r="384" fill="none" stroke="#ffcc00" stroke-width="1.2" opacity="0.4" />
+    <circle cx="400" cy="400" r="372" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.3" stroke-dasharray="12 8 4 8" />
+    <!-- Natraj Cosmic Flame Loops (Prabhamandala) -->
+    <g transform="rotate(0.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(10.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(20.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(30.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(40.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(50.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(60.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(70.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(80.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(90.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(100.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(110.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(120.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(130.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(140.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(150.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(160.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(170.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(180.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(190.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(200.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(210.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(220.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(230.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(240.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(250.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(260.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(270.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(280.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(290.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(300.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(310.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(320.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(330.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(340.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(350.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#introOutlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#introFlameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <!-- Outer Wheel Rim Concentric Loops -->
+    <circle cx="400" cy="400" r="348" fill="none" stroke="#f2541b" stroke-width="2.2" opacity="0.9" />
+    <circle cx="400" cy="400" r="342" fill="none" stroke="#ffcc00" stroke-width="1" opacity="0.75" />
+    <circle cx="400" cy="400" r="336" fill="none" stroke="#f2541b" stroke-width="0.7" opacity="0.4" stroke-dasharray="4 4" />
+    <circle cx="728.00" cy="400.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="728.00" cy="400.00" r="0.8" fill="#ffcc00" />
+    <circle cx="726.75" cy="428.59" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="726.75" cy="428.59" r="0.8" fill="#ffcc00" />
+    <circle cx="723.02" cy="456.96" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="723.02" cy="456.96" r="0.8" fill="#ffcc00" />
+    <circle cx="716.82" cy="484.89" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="716.82" cy="484.89" r="0.8" fill="#ffcc00" />
+    <circle cx="708.22" cy="512.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="708.22" cy="512.18" r="0.8" fill="#ffcc00" />
+    <circle cx="697.27" cy="538.62" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="697.27" cy="538.62" r="0.8" fill="#ffcc00" />
+    <circle cx="684.06" cy="564.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="684.06" cy="564.00" r="0.8" fill="#ffcc00" />
+    <circle cx="668.68" cy="588.13" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="668.68" cy="588.13" r="0.8" fill="#ffcc00" />
+    <circle cx="651.26" cy="610.83" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="651.26" cy="610.83" r="0.8" fill="#ffcc00" />
+    <circle cx="631.93" cy="631.93" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="631.93" cy="631.93" r="0.8" fill="#ffcc00" />
+    <circle cx="610.83" cy="651.26" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="610.83" cy="651.26" r="0.8" fill="#ffcc00" />
+    <circle cx="588.13" cy="668.68" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="588.13" cy="668.68" r="0.8" fill="#ffcc00" />
+    <circle cx="564.00" cy="684.06" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="564.00" cy="684.06" r="0.8" fill="#ffcc00" />
+    <circle cx="538.62" cy="697.27" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="538.62" cy="697.27" r="0.8" fill="#ffcc00" />
+    <circle cx="512.18" cy="708.22" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="512.18" cy="708.22" r="0.8" fill="#ffcc00" />
+    <circle cx="484.89" cy="716.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="484.89" cy="716.82" r="0.8" fill="#ffcc00" />
+    <circle cx="456.96" cy="723.02" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="456.96" cy="723.02" r="0.8" fill="#ffcc00" />
+    <circle cx="428.59" cy="726.75" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="428.59" cy="726.75" r="0.8" fill="#ffcc00" />
+    <circle cx="400.00" cy="728.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="400.00" cy="728.00" r="0.8" fill="#ffcc00" />
+    <circle cx="371.41" cy="726.75" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="371.41" cy="726.75" r="0.8" fill="#ffcc00" />
+    <circle cx="343.04" cy="723.02" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="343.04" cy="723.02" r="0.8" fill="#ffcc00" />
+    <circle cx="315.11" cy="716.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="315.11" cy="716.82" r="0.8" fill="#ffcc00" />
+    <circle cx="287.82" cy="708.22" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="287.82" cy="708.22" r="0.8" fill="#ffcc00" />
+    <circle cx="261.38" cy="697.27" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="261.38" cy="697.27" r="0.8" fill="#ffcc00" />
+    <circle cx="236.00" cy="684.06" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="236.00" cy="684.06" r="0.8" fill="#ffcc00" />
+    <circle cx="211.87" cy="668.68" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="211.87" cy="668.68" r="0.8" fill="#ffcc00" />
+    <circle cx="189.17" cy="651.26" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="189.17" cy="651.26" r="0.8" fill="#ffcc00" />
+    <circle cx="168.07" cy="631.93" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="168.07" cy="631.93" r="0.8" fill="#ffcc00" />
+    <circle cx="148.74" cy="610.83" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="148.74" cy="610.83" r="0.8" fill="#ffcc00" />
+    <circle cx="131.32" cy="588.13" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="131.32" cy="588.13" r="0.8" fill="#ffcc00" />
+    <circle cx="115.94" cy="564.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="115.94" cy="564.00" r="0.8" fill="#ffcc00" />
+    <circle cx="102.73" cy="538.62" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="102.73" cy="538.62" r="0.8" fill="#ffcc00" />
+    <circle cx="91.78" cy="512.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="91.78" cy="512.18" r="0.8" fill="#ffcc00" />
+    <circle cx="83.18" cy="484.89" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="83.18" cy="484.89" r="0.8" fill="#ffcc00" />
+    <circle cx="76.98" cy="456.96" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="76.98" cy="456.96" r="0.8" fill="#ffcc00" />
+    <circle cx="73.25" cy="428.59" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="73.25" cy="428.59" r="0.8" fill="#ffcc00" />
+    <circle cx="72.00" cy="400.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="72.00" cy="400.00" r="0.8" fill="#ffcc00" />
+    <circle cx="73.25" cy="371.41" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="73.25" cy="371.41" r="0.8" fill="#ffcc00" />
+    <circle cx="76.98" cy="343.04" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="76.98" cy="343.04" r="0.8" fill="#ffcc00" />
+    <circle cx="83.18" cy="315.11" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="83.18" cy="315.11" r="0.8" fill="#ffcc00" />
+    <circle cx="91.78" cy="287.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="91.78" cy="287.82" r="0.8" fill="#ffcc00" />
+    <circle cx="102.73" cy="261.38" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="102.73" cy="261.38" r="0.8" fill="#ffcc00" />
+    <circle cx="115.94" cy="236.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="115.94" cy="236.00" r="0.8" fill="#ffcc00" />
+    <circle cx="131.32" cy="211.87" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="131.32" cy="211.87" r="0.8" fill="#ffcc00" />
+    <circle cx="148.74" cy="189.17" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="148.74" cy="189.17" r="0.8" fill="#ffcc00" />
+    <circle cx="168.07" cy="168.07" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="168.07" cy="168.07" r="0.8" fill="#ffcc00" />
+    <circle cx="189.17" cy="148.74" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="189.17" cy="148.74" r="0.8" fill="#ffcc00" />
+    <circle cx="211.87" cy="131.32" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="211.87" cy="131.32" r="0.8" fill="#ffcc00" />
+    <circle cx="236.00" cy="115.94" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="236.00" cy="115.94" r="0.8" fill="#ffcc00" />
+    <circle cx="261.38" cy="102.73" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="261.38" cy="102.73" r="0.8" fill="#ffcc00" />
+    <circle cx="287.82" cy="91.78" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="287.82" cy="91.78" r="0.8" fill="#ffcc00" />
+    <circle cx="315.11" cy="83.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="315.11" cy="83.18" r="0.8" fill="#ffcc00" />
+    <circle cx="343.04" cy="76.98" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="343.04" cy="76.98" r="0.8" fill="#ffcc00" />
+    <circle cx="371.41" cy="73.25" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="371.41" cy="73.25" r="0.8" fill="#ffcc00" />
+    <circle cx="400.00" cy="72.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="400.00" cy="72.00" r="0.8" fill="#ffcc00" />
+    <circle cx="428.59" cy="73.25" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="428.59" cy="73.25" r="0.8" fill="#ffcc00" />
+    <circle cx="456.96" cy="76.98" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="456.96" cy="76.98" r="0.8" fill="#ffcc00" />
+    <circle cx="484.89" cy="83.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="484.89" cy="83.18" r="0.8" fill="#ffcc00" />
+    <circle cx="512.18" cy="91.78" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="512.18" cy="91.78" r="0.8" fill="#ffcc00" />
+    <circle cx="538.62" cy="102.73" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="538.62" cy="102.73" r="0.8" fill="#ffcc00" />
+    <circle cx="564.00" cy="115.94" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="564.00" cy="115.94" r="0.8" fill="#ffcc00" />
+    <circle cx="588.13" cy="131.32" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="588.13" cy="131.32" r="0.8" fill="#ffcc00" />
+    <circle cx="610.83" cy="148.74" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="610.83" cy="148.74" r="0.8" fill="#ffcc00" />
+    <circle cx="631.93" cy="168.07" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="631.93" cy="168.07" r="0.8" fill="#ffcc00" />
+    <circle cx="651.26" cy="189.17" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="651.26" cy="189.17" r="0.8" fill="#ffcc00" />
+    <circle cx="668.68" cy="211.87" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="668.68" cy="211.87" r="0.8" fill="#ffcc00" />
+    <circle cx="684.06" cy="236.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="684.06" cy="236.00" r="0.8" fill="#ffcc00" />
+    <circle cx="697.27" cy="261.38" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="697.27" cy="261.38" r="0.8" fill="#ffcc00" />
+    <circle cx="708.22" cy="287.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="708.22" cy="287.82" r="0.8" fill="#ffcc00" />
+    <circle cx="716.82" cy="315.11" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="716.82" cy="315.11" r="0.8" fill="#ffcc00" />
+    <circle cx="723.02" cy="343.04" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="723.02" cy="343.04" r="0.8" fill="#ffcc00" />
+    <circle cx="726.75" cy="371.41" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="726.75" cy="371.41" r="0.8" fill="#ffcc00" />
+    <circle cx="400" cy="400" r="320" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.4" />
+    <circle cx="400" cy="400" r="306" fill="none" stroke="#ffcc00" stroke-width="1.2" opacity="0.6" />
+    <g transform="rotate(0.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(7.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(15.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(22.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(30.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(37.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(45.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(52.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(60.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(67.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(75.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(82.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(90.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(97.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(105.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(112.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(120.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(127.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(135.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(142.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(150.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(157.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(165.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(172.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(180.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(187.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(195.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(202.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(210.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(217.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(225.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(232.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(240.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(247.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(255.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(262.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(270.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(277.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(285.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(292.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(300.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(307.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(315.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(322.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(330.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(337.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(345.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(352.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <circle cx="400" cy="400" r="294" fill="none" stroke="#f2541b" stroke-width="2" opacity="0.85" />
+    <circle cx="400" cy="400" r="288" fill="none" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+    <circle cx="400" cy="400" r="282" fill="none" stroke="#f2541b" stroke-width="0.6" opacity="0.3" stroke-dasharray="2 4" />
+    <!-- 24 Spokes (Konark Architectural Outline) -->
+    <g id="spokesGroup">
+      <!-- Spoke 1 (Major at 0.0 deg) -->
+      <g transform="rotate(0.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 2 (Minor at 15.0 deg) -->
+      <g transform="rotate(15.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 3 (Minor at 30.0 deg) -->
+      <g transform="rotate(30.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 4 (Major at 45.0 deg) -->
+      <g transform="rotate(45.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 5 (Minor at 60.0 deg) -->
+      <g transform="rotate(60.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 6 (Minor at 75.0 deg) -->
+      <g transform="rotate(75.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 7 (Major at 90.0 deg) -->
+      <g transform="rotate(90.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 8 (Minor at 105.0 deg) -->
+      <g transform="rotate(105.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 9 (Minor at 120.0 deg) -->
+      <g transform="rotate(120.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 10 (Major at 135.0 deg) -->
+      <g transform="rotate(135.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 11 (Minor at 150.0 deg) -->
+      <g transform="rotate(150.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 12 (Minor at 165.0 deg) -->
+      <g transform="rotate(165.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 13 (Major at 180.0 deg) -->
+      <g transform="rotate(180.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 14 (Minor at 195.0 deg) -->
+      <g transform="rotate(195.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 15 (Minor at 210.0 deg) -->
+      <g transform="rotate(210.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 16 (Major at 225.0 deg) -->
+      <g transform="rotate(225.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 17 (Minor at 240.0 deg) -->
+      <g transform="rotate(240.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 18 (Minor at 255.0 deg) -->
+      <g transform="rotate(255.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 19 (Major at 270.0 deg) -->
+      <g transform="rotate(270.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 20 (Minor at 285.0 deg) -->
+      <g transform="rotate(285.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 21 (Minor at 300.0 deg) -->
+      <g transform="rotate(300.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 22 (Major at 315.0 deg) -->
+      <g transform="rotate(315.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 23 (Minor at 330.0 deg) -->
+      <g transform="rotate(330.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 24 (Minor at 345.0 deg) -->
+      <g transform="rotate(345.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+    </g>
+    <!-- Central Axle Hub Concentric Loops -->
+    <circle cx="400" cy="400" r="95" fill="#ffffff" stroke="#f2541b" stroke-width="2.2" />
+    <circle cx="400" cy="400" r="88" fill="none" stroke="#ffcc00" stroke-width="1.2" />
+    <circle cx="400" cy="400" r="80" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.4" stroke-dasharray="3 3" />
+    <circle cx="480.00" cy="400.00" r="1.4" fill="#f2541b" />
+    <circle cx="478.46" cy="415.61" r="1.4" fill="#f2541b" />
+    <circle cx="473.91" cy="430.61" r="1.4" fill="#f2541b" />
+    <circle cx="466.52" cy="444.45" r="1.4" fill="#f2541b" />
+    <circle cx="456.57" cy="456.57" r="1.4" fill="#f2541b" />
+    <circle cx="444.45" cy="466.52" r="1.4" fill="#f2541b" />
+    <circle cx="430.61" cy="473.91" r="1.4" fill="#f2541b" />
+    <circle cx="415.61" cy="478.46" r="1.4" fill="#f2541b" />
+    <circle cx="400.00" cy="480.00" r="1.4" fill="#f2541b" />
+    <circle cx="384.39" cy="478.46" r="1.4" fill="#f2541b" />
+    <circle cx="369.39" cy="473.91" r="1.4" fill="#f2541b" />
+    <circle cx="355.55" cy="466.52" r="1.4" fill="#f2541b" />
+    <circle cx="343.43" cy="456.57" r="1.4" fill="#f2541b" />
+    <circle cx="333.48" cy="444.45" r="1.4" fill="#f2541b" />
+    <circle cx="326.09" cy="430.61" r="1.4" fill="#f2541b" />
+    <circle cx="321.54" cy="415.61" r="1.4" fill="#f2541b" />
+    <circle cx="320.00" cy="400.00" r="1.4" fill="#f2541b" />
+    <circle cx="321.54" cy="384.39" r="1.4" fill="#f2541b" />
+    <circle cx="326.09" cy="369.39" r="1.4" fill="#f2541b" />
+    <circle cx="333.48" cy="355.55" r="1.4" fill="#f2541b" />
+    <circle cx="343.43" cy="343.43" r="1.4" fill="#f2541b" />
+    <circle cx="355.55" cy="333.48" r="1.4" fill="#f2541b" />
+    <circle cx="369.39" cy="326.09" r="1.4" fill="#f2541b" />
+    <circle cx="384.39" cy="321.54" r="1.4" fill="#f2541b" />
+    <circle cx="400.00" cy="320.00" r="1.4" fill="#f2541b" />
+    <circle cx="415.61" cy="321.54" r="1.4" fill="#f2541b" />
+    <circle cx="430.61" cy="326.09" r="1.4" fill="#f2541b" />
+    <circle cx="444.45" cy="333.48" r="1.4" fill="#f2541b" />
+    <circle cx="456.57" cy="343.43" r="1.4" fill="#f2541b" />
+    <circle cx="466.52" cy="355.55" r="1.4" fill="#f2541b" />
+    <circle cx="473.91" cy="369.39" r="1.4" fill="#f2541b" />
+    <circle cx="478.46" cy="384.39" r="1.4" fill="#f2541b" />
+    <circle cx="400" cy="400" r="68" fill="none" stroke="#f2541b" stroke-width="1.2" />
+    <circle cx="400" cy="400" r="58" fill="none" stroke="#ffcc00" stroke-width="1" />
+    <g transform="rotate(0.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(22.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(45.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(67.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(90.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(112.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(135.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(157.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(180.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(202.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(225.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(247.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(270.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(292.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(315.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(337.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <circle cx="400" cy="400" r="34" fill="#ffffff" stroke="#f2541b" stroke-width="1.8" />
+    <circle cx="400" cy="400" r="24" fill="none" stroke="#ffcc00" stroke-width="1.5" />
+    <circle cx="400" cy="400" r="14" fill="#f2541b" />
+    <circle cx="400" cy="400" r="6" fill="#ffcc00" />
+    <circle cx="400" cy="400" r="2.5" fill="#ffffff" />
+  </g> <!-- end chakraRotator -->
+</svg>
+      </div>
+    </div>
+
+    <!-- Entry Prompt (Revealed once loading completes and wheel goes still) -->
+    <div class="intro-entry-prompt" id="introEntryPrompt">
+      <button class="entry-btn" id="enterPortfolioBtn">
+        <span class="btn-icon">☸</span>
+        <span>Enter Portfolio</span>
+      </button>
+      <span class="entry-instruction">Click the Chakra or Press [Enter] to Enter</span>
+    </div>
+  </aside>
+
+  <!-- ======================================================================
+       BACKGROUND 24-SPOKE KONARK OUTLINE WHEEL (STAYS IN ONE FIXED PLACE IN BACK)
+       Half-visible on the left side, rotates like a wheel as you scroll with solar flare effects
+       ====================================================================== -->
+  <div id="backgroundChakraZone" title="24-Spoke Konark Sun Chakra & Natraj Cosmic Flames (Click to advance spoke)">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" class="chakra-svg" id="konarkChakraSvg" width="100%" height="100%">
+  <defs>
+    <!-- Soft Warm Orange & Bright Yellow Gradients -->
+    <linearGradient id="outlineOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7b39" />
+      <stop offset="50%" stop-color="#f2541b" />
+      <stop offset="100%" stop-color="#d63b04" />
+    </linearGradient>
+
+    <linearGradient id="flameOrangeYellow" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#f2541b" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#ff7b39" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#ffcc00" stop-opacity="0.95" />
+    </linearGradient>
+
+    <linearGradient id="accentYellow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe600" />
+      <stop offset="100%" stop-color="#ffb700" />
+    </linearGradient>
+  </defs>
+  <g id="chakraRotator">
+    <!-- Concentric Celestial Loops & Orbits -->
+    <circle cx="400" cy="400" r="392" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.25" stroke-dasharray="3 6" />
+    <circle cx="400" cy="400" r="384" fill="none" stroke="#ffcc00" stroke-width="1.2" opacity="0.4" />
+    <circle cx="400" cy="400" r="372" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.3" stroke-dasharray="12 8 4 8" />
+    <!-- Natraj Cosmic Flame Loops (Prabhamandala) -->
+    <g transform="rotate(0.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(10.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(20.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(30.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(40.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(50.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(60.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(70.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(80.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(90.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(100.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(110.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(120.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(130.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(140.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(150.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(160.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(170.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(180.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(190.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(200.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(210.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(220.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(230.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(240.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(250.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(260.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(270.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(280.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(290.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(300.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(310.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(320.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(330.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(340.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <g transform="rotate(350.00 400 400)">
+      <path d="M 395,54 C 388,38 392,26 400,16 C 408,26 412,38 405,54" fill="none" stroke="url(#outlineOrange)" stroke-width="1.4" opacity="0.85" />
+      <path d="M 397,54 C 392,42 396,32 400,24 C 404,32 408,42 403,54" fill="url(#flameOrangeYellow)" opacity="0.3" />
+      <circle cx="400" cy="16" r="2" fill="#ffcc00" />
+    </g>
+    <!-- Outer Wheel Rim Concentric Loops -->
+    <circle cx="400" cy="400" r="348" fill="none" stroke="#f2541b" stroke-width="2.2" opacity="0.9" />
+    <circle cx="400" cy="400" r="342" fill="none" stroke="#ffcc00" stroke-width="1" opacity="0.75" />
+    <circle cx="400" cy="400" r="336" fill="none" stroke="#f2541b" stroke-width="0.7" opacity="0.4" stroke-dasharray="4 4" />
+    <circle cx="728.00" cy="400.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="728.00" cy="400.00" r="0.8" fill="#ffcc00" />
+    <circle cx="726.75" cy="428.59" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="726.75" cy="428.59" r="0.8" fill="#ffcc00" />
+    <circle cx="723.02" cy="456.96" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="723.02" cy="456.96" r="0.8" fill="#ffcc00" />
+    <circle cx="716.82" cy="484.89" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="716.82" cy="484.89" r="0.8" fill="#ffcc00" />
+    <circle cx="708.22" cy="512.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="708.22" cy="512.18" r="0.8" fill="#ffcc00" />
+    <circle cx="697.27" cy="538.62" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="697.27" cy="538.62" r="0.8" fill="#ffcc00" />
+    <circle cx="684.06" cy="564.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="684.06" cy="564.00" r="0.8" fill="#ffcc00" />
+    <circle cx="668.68" cy="588.13" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="668.68" cy="588.13" r="0.8" fill="#ffcc00" />
+    <circle cx="651.26" cy="610.83" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="651.26" cy="610.83" r="0.8" fill="#ffcc00" />
+    <circle cx="631.93" cy="631.93" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="631.93" cy="631.93" r="0.8" fill="#ffcc00" />
+    <circle cx="610.83" cy="651.26" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="610.83" cy="651.26" r="0.8" fill="#ffcc00" />
+    <circle cx="588.13" cy="668.68" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="588.13" cy="668.68" r="0.8" fill="#ffcc00" />
+    <circle cx="564.00" cy="684.06" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="564.00" cy="684.06" r="0.8" fill="#ffcc00" />
+    <circle cx="538.62" cy="697.27" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="538.62" cy="697.27" r="0.8" fill="#ffcc00" />
+    <circle cx="512.18" cy="708.22" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="512.18" cy="708.22" r="0.8" fill="#ffcc00" />
+    <circle cx="484.89" cy="716.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="484.89" cy="716.82" r="0.8" fill="#ffcc00" />
+    <circle cx="456.96" cy="723.02" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="456.96" cy="723.02" r="0.8" fill="#ffcc00" />
+    <circle cx="428.59" cy="726.75" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="428.59" cy="726.75" r="0.8" fill="#ffcc00" />
+    <circle cx="400.00" cy="728.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="400.00" cy="728.00" r="0.8" fill="#ffcc00" />
+    <circle cx="371.41" cy="726.75" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="371.41" cy="726.75" r="0.8" fill="#ffcc00" />
+    <circle cx="343.04" cy="723.02" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="343.04" cy="723.02" r="0.8" fill="#ffcc00" />
+    <circle cx="315.11" cy="716.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="315.11" cy="716.82" r="0.8" fill="#ffcc00" />
+    <circle cx="287.82" cy="708.22" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="287.82" cy="708.22" r="0.8" fill="#ffcc00" />
+    <circle cx="261.38" cy="697.27" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="261.38" cy="697.27" r="0.8" fill="#ffcc00" />
+    <circle cx="236.00" cy="684.06" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="236.00" cy="684.06" r="0.8" fill="#ffcc00" />
+    <circle cx="211.87" cy="668.68" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="211.87" cy="668.68" r="0.8" fill="#ffcc00" />
+    <circle cx="189.17" cy="651.26" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="189.17" cy="651.26" r="0.8" fill="#ffcc00" />
+    <circle cx="168.07" cy="631.93" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="168.07" cy="631.93" r="0.8" fill="#ffcc00" />
+    <circle cx="148.74" cy="610.83" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="148.74" cy="610.83" r="0.8" fill="#ffcc00" />
+    <circle cx="131.32" cy="588.13" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="131.32" cy="588.13" r="0.8" fill="#ffcc00" />
+    <circle cx="115.94" cy="564.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="115.94" cy="564.00" r="0.8" fill="#ffcc00" />
+    <circle cx="102.73" cy="538.62" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="102.73" cy="538.62" r="0.8" fill="#ffcc00" />
+    <circle cx="91.78" cy="512.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="91.78" cy="512.18" r="0.8" fill="#ffcc00" />
+    <circle cx="83.18" cy="484.89" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="83.18" cy="484.89" r="0.8" fill="#ffcc00" />
+    <circle cx="76.98" cy="456.96" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="76.98" cy="456.96" r="0.8" fill="#ffcc00" />
+    <circle cx="73.25" cy="428.59" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="73.25" cy="428.59" r="0.8" fill="#ffcc00" />
+    <circle cx="72.00" cy="400.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="72.00" cy="400.00" r="0.8" fill="#ffcc00" />
+    <circle cx="73.25" cy="371.41" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="73.25" cy="371.41" r="0.8" fill="#ffcc00" />
+    <circle cx="76.98" cy="343.04" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="76.98" cy="343.04" r="0.8" fill="#ffcc00" />
+    <circle cx="83.18" cy="315.11" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="83.18" cy="315.11" r="0.8" fill="#ffcc00" />
+    <circle cx="91.78" cy="287.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="91.78" cy="287.82" r="0.8" fill="#ffcc00" />
+    <circle cx="102.73" cy="261.38" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="102.73" cy="261.38" r="0.8" fill="#ffcc00" />
+    <circle cx="115.94" cy="236.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="115.94" cy="236.00" r="0.8" fill="#ffcc00" />
+    <circle cx="131.32" cy="211.87" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="131.32" cy="211.87" r="0.8" fill="#ffcc00" />
+    <circle cx="148.74" cy="189.17" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="148.74" cy="189.17" r="0.8" fill="#ffcc00" />
+    <circle cx="168.07" cy="168.07" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="168.07" cy="168.07" r="0.8" fill="#ffcc00" />
+    <circle cx="189.17" cy="148.74" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="189.17" cy="148.74" r="0.8" fill="#ffcc00" />
+    <circle cx="211.87" cy="131.32" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="211.87" cy="131.32" r="0.8" fill="#ffcc00" />
+    <circle cx="236.00" cy="115.94" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="236.00" cy="115.94" r="0.8" fill="#ffcc00" />
+    <circle cx="261.38" cy="102.73" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="261.38" cy="102.73" r="0.8" fill="#ffcc00" />
+    <circle cx="287.82" cy="91.78" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="287.82" cy="91.78" r="0.8" fill="#ffcc00" />
+    <circle cx="315.11" cy="83.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="315.11" cy="83.18" r="0.8" fill="#ffcc00" />
+    <circle cx="343.04" cy="76.98" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="343.04" cy="76.98" r="0.8" fill="#ffcc00" />
+    <circle cx="371.41" cy="73.25" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="371.41" cy="73.25" r="0.8" fill="#ffcc00" />
+    <circle cx="400.00" cy="72.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="400.00" cy="72.00" r="0.8" fill="#ffcc00" />
+    <circle cx="428.59" cy="73.25" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="428.59" cy="73.25" r="0.8" fill="#ffcc00" />
+    <circle cx="456.96" cy="76.98" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="456.96" cy="76.98" r="0.8" fill="#ffcc00" />
+    <circle cx="484.89" cy="83.18" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="484.89" cy="83.18" r="0.8" fill="#ffcc00" />
+    <circle cx="512.18" cy="91.78" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="512.18" cy="91.78" r="0.8" fill="#ffcc00" />
+    <circle cx="538.62" cy="102.73" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="538.62" cy="102.73" r="0.8" fill="#ffcc00" />
+    <circle cx="564.00" cy="115.94" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="564.00" cy="115.94" r="0.8" fill="#ffcc00" />
+    <circle cx="588.13" cy="131.32" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="588.13" cy="131.32" r="0.8" fill="#ffcc00" />
+    <circle cx="610.83" cy="148.74" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="610.83" cy="148.74" r="0.8" fill="#ffcc00" />
+    <circle cx="631.93" cy="168.07" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="631.93" cy="168.07" r="0.8" fill="#ffcc00" />
+    <circle cx="651.26" cy="189.17" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="651.26" cy="189.17" r="0.8" fill="#ffcc00" />
+    <circle cx="668.68" cy="211.87" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="668.68" cy="211.87" r="0.8" fill="#ffcc00" />
+    <circle cx="684.06" cy="236.00" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="684.06" cy="236.00" r="0.8" fill="#ffcc00" />
+    <circle cx="697.27" cy="261.38" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="697.27" cy="261.38" r="0.8" fill="#ffcc00" />
+    <circle cx="708.22" cy="287.82" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="708.22" cy="287.82" r="0.8" fill="#ffcc00" />
+    <circle cx="716.82" cy="315.11" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="716.82" cy="315.11" r="0.8" fill="#ffcc00" />
+    <circle cx="723.02" cy="343.04" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="723.02" cy="343.04" r="0.8" fill="#ffcc00" />
+    <circle cx="726.75" cy="371.41" r="2.2" fill="none" stroke="#f2541b" stroke-width="1" />
+    <circle cx="726.75" cy="371.41" r="0.8" fill="#ffcc00" />
+    <circle cx="400" cy="400" r="320" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.4" />
+    <circle cx="400" cy="400" r="306" fill="none" stroke="#ffcc00" stroke-width="1.2" opacity="0.6" />
+    <g transform="rotate(0.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(7.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(15.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(22.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(30.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(37.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(45.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(52.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(60.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(67.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(75.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(82.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(90.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(97.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(105.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(112.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(120.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(127.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(135.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(142.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(150.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(157.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(165.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(172.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(180.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(187.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(195.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(202.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(210.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(217.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(225.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(232.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(240.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(247.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(255.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(262.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(270.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(277.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(285.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(292.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(300.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(307.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(315.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(322.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(330.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(337.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(345.00 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <g transform="rotate(352.50 400 400)">
+      <polyline points="396,93 400,81 404,93" fill="none" stroke="#f2541b" stroke-width="0.9" opacity="0.6" />
+    </g>
+    <circle cx="400" cy="400" r="294" fill="none" stroke="#f2541b" stroke-width="2" opacity="0.85" />
+    <circle cx="400" cy="400" r="288" fill="none" stroke="#ffcc00" stroke-width="0.8" opacity="0.6" />
+    <circle cx="400" cy="400" r="282" fill="none" stroke="#f2541b" stroke-width="0.6" opacity="0.3" stroke-dasharray="2 4" />
+    <!-- 24 Spokes (Konark Architectural Outline) -->
+    <g id="spokesGroup">
+      <!-- Spoke 1 (Major at 0.0 deg) -->
+      <g transform="rotate(0.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 2 (Minor at 15.0 deg) -->
+      <g transform="rotate(15.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 3 (Minor at 30.0 deg) -->
+      <g transform="rotate(30.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 4 (Major at 45.0 deg) -->
+      <g transform="rotate(45.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 5 (Minor at 60.0 deg) -->
+      <g transform="rotate(60.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 6 (Minor at 75.0 deg) -->
+      <g transform="rotate(75.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 7 (Major at 90.0 deg) -->
+      <g transform="rotate(90.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 8 (Minor at 105.0 deg) -->
+      <g transform="rotate(105.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 9 (Minor at 120.0 deg) -->
+      <g transform="rotate(120.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 10 (Major at 135.0 deg) -->
+      <g transform="rotate(135.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 11 (Minor at 150.0 deg) -->
+      <g transform="rotate(150.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 12 (Minor at 165.0 deg) -->
+      <g transform="rotate(165.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 13 (Major at 180.0 deg) -->
+      <g transform="rotate(180.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 14 (Minor at 195.0 deg) -->
+      <g transform="rotate(195.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 15 (Minor at 210.0 deg) -->
+      <g transform="rotate(210.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 16 (Major at 225.0 deg) -->
+      <g transform="rotate(225.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 17 (Minor at 240.0 deg) -->
+      <g transform="rotate(240.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 18 (Minor at 255.0 deg) -->
+      <g transform="rotate(255.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 19 (Major at 270.0 deg) -->
+      <g transform="rotate(270.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 20 (Minor at 285.0 deg) -->
+      <g transform="rotate(285.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 21 (Minor at 300.0 deg) -->
+      <g transform="rotate(300.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 22 (Major at 315.0 deg) -->
+      <g transform="rotate(315.0 400 400)">
+        <!-- Spoke boundary outlines -->
+        <line x1="392" y1="305" x2="394" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="408" y1="305" x2="406" y2="228" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="394" y1="189" x2="392" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="406" y1="189" x2="408" y2="112" stroke="#f2541b" stroke-width="1.4" />
+        <line x1="400" y1="305" x2="400" y2="228" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <line x1="400" y1="189" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.8" opacity="0.8" />
+        <circle cx="392" cy="305" r="1.5" fill="#f2541b" />
+        <circle cx="408" cy="305" r="1.5" fill="#f2541b" />
+        <!-- Major Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="20" fill="#ffffff" stroke="#f2541b" stroke-width="1.6" />
+        <circle cx="400" cy="208.5" r="16" fill="none" stroke="#ffcc00" stroke-width="1" stroke-dasharray="3 3" />
+        <circle cx="400" cy="208.5" r="11" fill="none" stroke="#f2541b" stroke-width="1" />
+        <circle cx="400" cy="208.5" r="5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="2.2" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 23 (Minor at 330.0 deg) -->
+      <g transform="rotate(330.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+      <!-- Spoke 24 (Minor at 345.0 deg) -->
+      <g transform="rotate(345.0 400 400)">
+        <!-- Minor Spoke boundary outlines -->
+        <line x1="396" y1="305" x2="396.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="404" y1="305" x2="403.5" y2="222" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="396.5" y1="195" x2="396" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="403.5" y1="195" x2="404" y2="112" stroke="#f2541b" stroke-width="1.1" opacity="0.8" />
+        <line x1="400" y1="305" x2="400" y2="112" stroke="#ffcc00" stroke-width="0.6" opacity="0.6" stroke-dasharray="3 4" />
+        <!-- Minor Spoke Central Medallion & Dot -->
+        <circle cx="400" cy="208.5" r="13" fill="#ffffff" stroke="#f2541b" stroke-width="1.3" />
+        <circle cx="400" cy="208.5" r="8.5" fill="none" stroke="#ffcc00" stroke-width="0.8" />
+        <circle cx="400" cy="208.5" r="3.5" fill="#f2541b" />
+        <circle cx="400" cy="208.5" r="1.5" fill="#ffcc00" />
+      </g>
+    </g>
+    <!-- Central Axle Hub Concentric Loops -->
+    <circle cx="400" cy="400" r="95" fill="#ffffff" stroke="#f2541b" stroke-width="2.2" />
+    <circle cx="400" cy="400" r="88" fill="none" stroke="#ffcc00" stroke-width="1.2" />
+    <circle cx="400" cy="400" r="80" fill="none" stroke="#f2541b" stroke-width="0.8" opacity="0.4" stroke-dasharray="3 3" />
+    <circle cx="480.00" cy="400.00" r="1.4" fill="#f2541b" />
+    <circle cx="478.46" cy="415.61" r="1.4" fill="#f2541b" />
+    <circle cx="473.91" cy="430.61" r="1.4" fill="#f2541b" />
+    <circle cx="466.52" cy="444.45" r="1.4" fill="#f2541b" />
+    <circle cx="456.57" cy="456.57" r="1.4" fill="#f2541b" />
+    <circle cx="444.45" cy="466.52" r="1.4" fill="#f2541b" />
+    <circle cx="430.61" cy="473.91" r="1.4" fill="#f2541b" />
+    <circle cx="415.61" cy="478.46" r="1.4" fill="#f2541b" />
+    <circle cx="400.00" cy="480.00" r="1.4" fill="#f2541b" />
+    <circle cx="384.39" cy="478.46" r="1.4" fill="#f2541b" />
+    <circle cx="369.39" cy="473.91" r="1.4" fill="#f2541b" />
+    <circle cx="355.55" cy="466.52" r="1.4" fill="#f2541b" />
+    <circle cx="343.43" cy="456.57" r="1.4" fill="#f2541b" />
+    <circle cx="333.48" cy="444.45" r="1.4" fill="#f2541b" />
+    <circle cx="326.09" cy="430.61" r="1.4" fill="#f2541b" />
+    <circle cx="321.54" cy="415.61" r="1.4" fill="#f2541b" />
+    <circle cx="320.00" cy="400.00" r="1.4" fill="#f2541b" />
+    <circle cx="321.54" cy="384.39" r="1.4" fill="#f2541b" />
+    <circle cx="326.09" cy="369.39" r="1.4" fill="#f2541b" />
+    <circle cx="333.48" cy="355.55" r="1.4" fill="#f2541b" />
+    <circle cx="343.43" cy="343.43" r="1.4" fill="#f2541b" />
+    <circle cx="355.55" cy="333.48" r="1.4" fill="#f2541b" />
+    <circle cx="369.39" cy="326.09" r="1.4" fill="#f2541b" />
+    <circle cx="384.39" cy="321.54" r="1.4" fill="#f2541b" />
+    <circle cx="400.00" cy="320.00" r="1.4" fill="#f2541b" />
+    <circle cx="415.61" cy="321.54" r="1.4" fill="#f2541b" />
+    <circle cx="430.61" cy="326.09" r="1.4" fill="#f2541b" />
+    <circle cx="444.45" cy="333.48" r="1.4" fill="#f2541b" />
+    <circle cx="456.57" cy="343.43" r="1.4" fill="#f2541b" />
+    <circle cx="466.52" cy="355.55" r="1.4" fill="#f2541b" />
+    <circle cx="473.91" cy="369.39" r="1.4" fill="#f2541b" />
+    <circle cx="478.46" cy="384.39" r="1.4" fill="#f2541b" />
+    <circle cx="400" cy="400" r="68" fill="none" stroke="#f2541b" stroke-width="1.2" />
+    <circle cx="400" cy="400" r="58" fill="none" stroke="#ffcc00" stroke-width="1" />
+    <g transform="rotate(0.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(22.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(45.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(67.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(90.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(112.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(135.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(157.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(180.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(202.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(225.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(247.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(270.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(292.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(315.00 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <g transform="rotate(337.50 400 400)">
+      <path d="M 396,368 C 392,352 396,344 400,342 C 404,344 408,352 404,368" fill="none" stroke="#f2541b" stroke-width="1" />
+    </g>
+    <circle cx="400" cy="400" r="34" fill="#ffffff" stroke="#f2541b" stroke-width="1.8" />
+    <circle cx="400" cy="400" r="24" fill="none" stroke="#ffcc00" stroke-width="1.5" />
+    <circle cx="400" cy="400" r="14" fill="#f2541b" />
+    <circle cx="400" cy="400" r="6" fill="#ffcc00" />
+    <circle cx="400" cy="400" r="2.5" fill="#ffffff" />
+  </g> <!-- end chakraRotator -->
+</svg>
+  </div>
+
+  <!-- ======================================================================
+       MAIN PORTFOLIO (TRANSLUCENT SIDEBAR + EDITORIAL NARRATIVE)
+       ====================================================================== -->
+  <main id="portfolio-main">
+
+    <!-- ==================== TRANSLUCENT PINNED SIDEBAR ==================== -->
+    <aside class="sidebar-sticky-panel" aria-label="Profile and Contact Sidebar">
+
+      <!-- Identity & Portrait -->
+      <div class="sidebar-identity">
+        <div class="avatar-frame-wrap">
+          <img src="assets/images/avatar-placeholder.svg" alt="Naitik - Software Engineer" class="avatar-img" id="avatarImg" />
+          <div class="avatar-status-pill">
+            <span class="live-dot"></span>
+            <span>AVAILABLE</span>
+          </div>
+        </div>
+
+        <div class="identity-titles">
+          <h2 class="identity-name serif-font" id="identityName">Naitik</h2>
+          <div class="identity-role" id="identityRole">Software Engineer</div>
+          <p class="identity-tagline" id="identityTagline">
+            Bridging architectural discipline, high performance, and timeless digital craft.
+          </p>
+        </div>
+      </div>
+
+      <!-- Chakra Motion Controls & Spoke Readout -->
+      <div class="sidebar-chakra-info">
+        <div class="chakra-spoke-tracker" id="chakraSpokeTracker">
+          Spoke I • The Cosmic Spark
+        </div>
+        <div class="chakra-controls-pill">
+          <button class="chakra-mode-btn active" id="modeScrollBtn" title="Rotate chakra gently with scroll progress">
+            <span>☸ Scroll Sync</span>
+          </button>
+          <button class="chakra-mode-btn" id="modeStillBtn" title="Keep chakra still while scrolling">
+            <span>🔒 Stay Still</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contact Details & Social Links (Pinned on this side) -->
+      <div class="sidebar-footer">
+        
+        <!-- 1-Click Copy Email -->
+        <div class="contact-email-card" id="copyEmailCard" role="button" tabindex="0" title="Click to copy email address">
+          <div class="email-meta">
+            <span class="email-label">Direct Email</span>
+            <span class="email-val" id="copyEmailVal">naitik.engineer@example.com</span>
+          </div>
+          <span class="email-copy-badge">Click to Copy</span>
+        </div>
+
+        <!-- Social Channels -->
+        <nav class="sidebar-social-links" aria-label="Social Profiles">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="GitHub Profile">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn Profile">
+            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="X / Twitter">
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="mailto:naitik.engineer@example.com" class="social-btn" title="Send Direct Mail">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+        </nav>
+
+        <!-- Time & Global Sync -->
+        <div class="sidebar-clock-row">
+          <span>TIMEZONE: IST (UTC+5:30)</span>
+          <span class="time-display" id="liveClockDisplay">--:--:-- LOCAL</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== EDITORIAL SCROLLABLE CONTENT ==================== -->
+    <div class="main-scroll-content">
+
+      <!-- Sticky Top Navigation Tracker Bar -->
+      <nav class="nav-tracker-bar" aria-label="Section Navigation">
+        <ul class="nav-links-list">
+          <li class="nav-link-item"><a href="#about" class="active">01. Intro</a></li>
+          <li class="nav-link-item"><a href="#history">02. History</a></li>
+          <li class="nav-link-item"><a href="#projects">03. Projects</a></li>
+          <li class="nav-link-item"><a href="#hobbies">04. Hobbies</a></li>
+          <li class="nav-link-item"><a href="#contact">05. Contact</a></li>
+        </ul>
+        <a href="#contact" class="nav-action-cta">Initiate Cycle ▸</a>
+      </nav>
+
+      <!-- ------------------------------------------------------------------
+           SECTION 1: INTRODUCTION (NARRATIVE, STATS, TECH LISTS)
+           ------------------------------------------------------------------ -->
+      <section id="about" class="portfolio-section">
+        <!-- Cosmic Genesis (Warm Light, Expanding Ring, Radial Glow, Mandala) & Nataraja Flame Dissolution -->
+        <div class="cosmic-singularity" id="singularity-about"></div>
+        <div class="genesis-shockwave-ring" id="shockwave-about"></div>
+        <div class="genesis-radial-glow" id="radialglow-about"></div>
+        <div class="destruction-flame-ring" id="flamering-about"></div>
+        <svg class="genesis-mandala-svg" id="mandala-about" viewBox="0 0 500 500" aria-hidden="true">
+          <circle cx="250" cy="250" r="235" class="mandala-stroke-line" stroke-dasharray="1480" stroke-dashoffset="1480" />
+          <circle cx="250" cy="250" r="195" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="1230" stroke-dashoffset="1230" />
+          <circle cx="250" cy="250" r="145" class="mandala-stroke-line" stroke-dasharray="915" stroke-dashoffset="915" />
+          <circle cx="250" cy="250" r="95" class="mandala-stroke-line" stroke-dasharray="600" stroke-dashoffset="600" />
+          <circle cx="250" cy="250" r="45" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="285" stroke-dashoffset="285" />
+          <path d="M 265.0,250.0 L 266.9,252.4 L 268.5,255.3 L 269.4,258.7 L 269.8,262.4 L 269.5,266.4 L 268.4,270.6 L 266.5,274.9 L 263.7,279.1 L 260.1,283.0 L 255.7,286.6 L 250.6,289.7 L 244.8,292.1 L 238.6,293.9 L 232.0,294.8 L 225.2,294.8 L 218.4,293.9 L 211.8,292.0 L 205.6,289.0 L 200.0,285.0 L 195.1,280.0 L 191.1,274.1 L 188.1,267.3 L 186.2,259.9 L 185.5,251.9 L 186.1,243.6 L 188.0,235.1 L 191.1,226.7 L 195.6,218.6 L 201.2,211.1 L 208.0,204.3 L 215.8,198.4 L 224.6,193.5 L 234.2,189.9 L 244.4,187.6 L 255.0,186.6 L 265.8,187.1 L 276.6,189.0 L 287.1,192.4 L 297.2,197.1 L 306.5,203.2 L 314.9,210.5 L 322.0,218.9 L 327.7,228.3 L 331.8,238.5 L 334.1,249.2 L 334.5,260.4 L 332.9,271.7 L 329.4,282.9 L 323.9,293.8 L 316.6,304.1 L 307.7,313.6 L 297.2,322.0 L 285.4,329.2 L 272.5,334.8 L 258.8,338.8 L 244.4,340.9 L 229.8,341.2 L 215.1,339.4 L 200.7,335.7 L 186.9,330.0 L 174.0,322.5 L 162.3,313.3 L 152.0,302.4 L 143.4,290.1 L 136.6,276.6 L 132.0,262.1 L 129.5,246.9 L 129.4,231.2 L 131.7,215.4 L 136.3,199.7 L 143.3,184.4 L 152.5,169.8 L 163.9,156.1 L 177.2,143.7 L 192.2,132.8 L 208.8,123.6 L 226.7,116.3 L 245.5,111.0 L 264.9,107.9 L 284.6,107.0 L 304.3,108.3 L 323.7,111.9 L 342.3,117.7 L 359.8,125.6 L 375.8,135.5 L 390.1,147.2 L 402.2,160.7 L 411.9,175.6 L 418.9,191.7 L 423.0,208.9 L 424.0,226.7 L 421.8,245.0 L 416.4,263.3 L 407.9,281.3 L 396.4,298.7 L 382.1,315.2 L 365.3,330.4 L 346.2,344.0 L 325.2,355.8 L 302.7,365.3 L 279.0,372.5 L 254.6,377.2 L 229.8,379.1 L 205.2,378.3 L 181.1,374.7" class="mandala-stroke-line" stroke-dasharray="2100" stroke-dashoffset="2100" />
+        </svg>
+
+        <header class="section-header-block">
+          <div class="section-tag-row">
+            <span class="section-number">01 // IDENTITY & PHILOSOPHY</span>
+          </div>
+          <h2 class="section-title serif-font">Architectural Foundations</h2>
+          <p class="section-lead">
+            Like the 24 spokes of the Konark Chakra marking the solar hours, software engineering is a discipline of rhythm, balance, and enduring structure.
+          </p>
+        </header>
+
+        <div class="editorial-narrative-block">
+          <h3 class="narrative-headline serif-font" id="narrativeHeadline">
+            Engineered with Precision, Driven by Continuous Creation.
+          </h3>
+          <div class="narrative-body" id="narrativeBody">
+            <p>
+              I am a Software Engineer dedicated to constructing high-reliability, resilient systems and intuitive digital experiences. My technical journey spans distributed backend architectures, modern reactive frontends, and low-latency system design.
+            </p>
+            <p>
+              Just as the cyclopean fire of Nataraja represents the eternal cycle of creation, transformation, and refinement, I view software through the lens of continuous evolution. From architecting scalable APIs to optimizing microsecond rendering performance, I strive to eliminate friction and build software that stands the test of scale.
+            </p>
+          </div>
+        </div>
+
+        <!-- Metric Highlights (No Box Borders) -->
+        <div class="metrics-strip" id="metricsStrip">
+          <div class="metric-cell">
+            <div class="metric-number">5+ Years</div>
+            <div class="metric-label">Engineering Rigor</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-number">99.99%</div>
+            <div class="metric-label">System Reliability</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-number">&lt;50ms</div>
+            <div class="metric-label">Target Latency</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-number">24 Spokes</div>
+            <div class="metric-label">Cycles of Creation</div>
+          </div>
+        </div>
+
+        <!-- Categorized Skills List (Editorial Flow) -->
+        <div class="skills-editorial-grid" id="skillsEditorialGrid">
+          <!-- Populated dynamically from portfolio-data.js -->
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------------
+           SECTION 2: HISTORY (EDITORIAL CHRONOLOGY)
+           ------------------------------------------------------------------ -->
+      <section id="history" class="portfolio-section">
+        <!-- Cosmic Genesis & Flame Dissolution -->
+        <div class="cosmic-singularity" id="singularity-history"></div>
+        <div class="genesis-shockwave-ring" id="shockwave-history"></div>
+        <div class="genesis-radial-glow" id="radialglow-history"></div>
+        <div class="destruction-flame-ring" id="flamering-history"></div>
+        <svg class="genesis-mandala-svg" id="mandala-history" viewBox="0 0 500 500" aria-hidden="true">
+          <circle cx="250" cy="250" r="235" class="mandala-stroke-line" stroke-dasharray="1480" stroke-dashoffset="1480" />
+          <circle cx="250" cy="250" r="195" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="1230" stroke-dashoffset="1230" />
+          <circle cx="250" cy="250" r="145" class="mandala-stroke-line" stroke-dasharray="915" stroke-dashoffset="915" />
+          <circle cx="250" cy="250" r="95" class="mandala-stroke-line" stroke-dasharray="600" stroke-dashoffset="600" />
+          <circle cx="250" cy="250" r="45" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="285" stroke-dashoffset="285" />
+          <path d="M 265.0,250.0 L 266.9,252.4 L 268.5,255.3 L 269.4,258.7 L 269.8,262.4 L 269.5,266.4 L 268.4,270.6 L 266.5,274.9 L 263.7,279.1 L 260.1,283.0 L 255.7,286.6 L 250.6,289.7 L 244.8,292.1 L 238.6,293.9 L 232.0,294.8 L 225.2,294.8 L 218.4,293.9 L 211.8,292.0 L 205.6,289.0 L 200.0,285.0 L 195.1,280.0 L 191.1,274.1 L 188.1,267.3 L 186.2,259.9 L 185.5,251.9 L 186.1,243.6 L 188.0,235.1 L 191.1,226.7 L 195.6,218.6 L 201.2,211.1 L 208.0,204.3 L 215.8,198.4 L 224.6,193.5 L 234.2,189.9 L 244.4,187.6 L 255.0,186.6 L 265.8,187.1 L 276.6,189.0 L 287.1,192.4 L 297.2,197.1 L 306.5,203.2 L 314.9,210.5 L 322.0,218.9 L 327.7,228.3 L 331.8,238.5 L 334.1,249.2 L 334.5,260.4 L 332.9,271.7 L 329.4,282.9 L 323.9,293.8 L 316.6,304.1 L 307.7,313.6 L 297.2,322.0 L 285.4,329.2 L 272.5,334.8 L 258.8,338.8 L 244.4,340.9 L 229.8,341.2 L 215.1,339.4 L 200.7,335.7 L 186.9,330.0 L 174.0,322.5 L 162.3,313.3 L 152.0,302.4 L 143.4,290.1 L 136.6,276.6 L 132.0,262.1 L 129.5,246.9 L 129.4,231.2 L 131.7,215.4 L 136.3,199.7 L 143.3,184.4 L 152.5,169.8 L 163.9,156.1 L 177.2,143.7 L 192.2,132.8 L 208.8,123.6 L 226.7,116.3 L 245.5,111.0 L 264.9,107.9 L 284.6,107.0 L 304.3,108.3 L 323.7,111.9 L 342.3,117.7 L 359.8,125.6 L 375.8,135.5 L 390.1,147.2 L 402.2,160.7 L 411.9,175.6 L 418.9,191.7 L 423.0,208.9 L 424.0,226.7 L 421.8,245.0 L 416.4,263.3 L 407.9,281.3 L 396.4,298.7 L 382.1,315.2 L 365.3,330.4 L 346.2,344.0 L 325.2,355.8 L 302.7,365.3 L 279.0,372.5 L 254.6,377.2 L 229.8,379.1 L 205.2,378.3 L 181.1,374.7" class="mandala-stroke-line" stroke-dasharray="2100" stroke-dashoffset="2100" />
+        </svg>
+
+        <header class="section-header-block">
+          <div class="section-tag-row">
+            <span class="section-number">02 // CHRONOLOGY & EVOLUTION</span>
+          </div>
+          <h2 class="section-title serif-font">The Epochs of Experience</h2>
+          <p class="section-lead">
+            A progressive journey through systems engineering, distributed architecture, and continuous technical growth.
+          </p>
+        </header>
+
+        <div class="editorial-history-stream" id="historyStream">
+          <!-- Populated dynamically from portfolio-data.js -->
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------------
+           SECTION 3: PROJECTS (CASE STUDIES)
+           ------------------------------------------------------------------ -->
+      <section id="projects" class="portfolio-section">
+        <!-- Cosmic Genesis & Flame Dissolution -->
+        <div class="cosmic-singularity" id="singularity-projects"></div>
+        <div class="genesis-shockwave-ring" id="shockwave-projects"></div>
+        <div class="genesis-radial-glow" id="radialglow-projects"></div>
+        <div class="destruction-flame-ring" id="flamering-projects"></div>
+        <svg class="genesis-mandala-svg" id="mandala-projects" viewBox="0 0 500 500" aria-hidden="true">
+          <circle cx="250" cy="250" r="235" class="mandala-stroke-line" stroke-dasharray="1480" stroke-dashoffset="1480" />
+          <circle cx="250" cy="250" r="195" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="1230" stroke-dashoffset="1230" />
+          <circle cx="250" cy="250" r="145" class="mandala-stroke-line" stroke-dasharray="915" stroke-dashoffset="915" />
+          <circle cx="250" cy="250" r="95" class="mandala-stroke-line" stroke-dasharray="600" stroke-dashoffset="600" />
+          <circle cx="250" cy="250" r="45" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="285" stroke-dashoffset="285" />
+          <path d="M 265.0,250.0 L 266.9,252.4 L 268.5,255.3 L 269.4,258.7 L 269.8,262.4 L 269.5,266.4 L 268.4,270.6 L 266.5,274.9 L 263.7,279.1 L 260.1,283.0 L 255.7,286.6 L 250.6,289.7 L 244.8,292.1 L 238.6,293.9 L 232.0,294.8 L 225.2,294.8 L 218.4,293.9 L 211.8,292.0 L 205.6,289.0 L 200.0,285.0 L 195.1,280.0 L 191.1,274.1 L 188.1,267.3 L 186.2,259.9 L 185.5,251.9 L 186.1,243.6 L 188.0,235.1 L 191.1,226.7 L 195.6,218.6 L 201.2,211.1 L 208.0,204.3 L 215.8,198.4 L 224.6,193.5 L 234.2,189.9 L 244.4,187.6 L 255.0,186.6 L 265.8,187.1 L 276.6,189.0 L 287.1,192.4 L 297.2,197.1 L 306.5,203.2 L 314.9,210.5 L 322.0,218.9 L 327.7,228.3 L 331.8,238.5 L 334.1,249.2 L 334.5,260.4 L 332.9,271.7 L 329.4,282.9 L 323.9,293.8 L 316.6,304.1 L 307.7,313.6 L 297.2,322.0 L 285.4,329.2 L 272.5,334.8 L 258.8,338.8 L 244.4,340.9 L 229.8,341.2 L 215.1,339.4 L 200.7,335.7 L 186.9,330.0 L 174.0,322.5 L 162.3,313.3 L 152.0,302.4 L 143.4,290.1 L 136.6,276.6 L 132.0,262.1 L 129.5,246.9 L 129.4,231.2 L 131.7,215.4 L 136.3,199.7 L 143.3,184.4 L 152.5,169.8 L 163.9,156.1 L 177.2,143.7 L 192.2,132.8 L 208.8,123.6 L 226.7,116.3 L 245.5,111.0 L 264.9,107.9 L 284.6,107.0 L 304.3,108.3 L 323.7,111.9 L 342.3,117.7 L 359.8,125.6 L 375.8,135.5 L 390.1,147.2 L 402.2,160.7 L 411.9,175.6 L 418.9,191.7 L 423.0,208.9 L 424.0,226.7 L 421.8,245.0 L 416.4,263.3 L 407.9,281.3 L 396.4,298.7 L 382.1,315.2 L 365.3,330.4 L 346.2,344.0 L 325.2,355.8 L 302.7,365.3 L 279.0,372.5 L 254.6,377.2 L 229.8,379.1 L 205.2,378.3 L 181.1,374.7" class="mandala-stroke-line" stroke-dasharray="2100" stroke-dashoffset="2100" />
+        </svg>
+
+        <header class="section-header-block">
+          <div class="section-tag-row">
+            <span class="section-number">03 // SYSTEMS & ARTIFACTS</span>
+          </div>
+          <h2 class="section-title serif-font">Featured Engineering Work</h2>
+          <p class="section-lead">
+            Selected high-throughput systems, creative geometry visualizers, and distributed cloud tools.
+          </p>
+        </header>
+
+        <div class="editorial-projects-stream" id="projectsStream">
+          <!-- Populated dynamically from portfolio-data.js -->
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------------
+           SECTION 4: HOBBIES & PASSIONS (EDITORIAL ESSAYS)
+           ------------------------------------------------------------------ -->
+      <section id="hobbies" class="portfolio-section">
+        <!-- Cosmic Genesis & Flame Dissolution -->
+        <div class="cosmic-singularity" id="singularity-hobbies"></div>
+        <div class="genesis-shockwave-ring" id="shockwave-hobbies"></div>
+        <div class="genesis-radial-glow" id="radialglow-hobbies"></div>
+        <div class="destruction-flame-ring" id="flamering-hobbies"></div>
+        <svg class="genesis-mandala-svg" id="mandala-hobbies" viewBox="0 0 500 500" aria-hidden="true">
+          <circle cx="250" cy="250" r="235" class="mandala-stroke-line" stroke-dasharray="1480" stroke-dashoffset="1480" />
+          <circle cx="250" cy="250" r="195" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="1230" stroke-dashoffset="1230" />
+          <circle cx="250" cy="250" r="145" class="mandala-stroke-line" stroke-dasharray="915" stroke-dashoffset="915" />
+          <circle cx="250" cy="250" r="95" class="mandala-stroke-line" stroke-dasharray="600" stroke-dashoffset="600" />
+          <circle cx="250" cy="250" r="45" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="285" stroke-dashoffset="285" />
+          <path d="M 265.0,250.0 L 266.9,252.4 L 268.5,255.3 L 269.4,258.7 L 269.8,262.4 L 269.5,266.4 L 268.4,270.6 L 266.5,274.9 L 263.7,279.1 L 260.1,283.0 L 255.7,286.6 L 250.6,289.7 L 244.8,292.1 L 238.6,293.9 L 232.0,294.8 L 225.2,294.8 L 218.4,293.9 L 211.8,292.0 L 205.6,289.0 L 200.0,285.0 L 195.1,280.0 L 191.1,274.1 L 188.1,267.3 L 186.2,259.9 L 185.5,251.9 L 186.1,243.6 L 188.0,235.1 L 191.1,226.7 L 195.6,218.6 L 201.2,211.1 L 208.0,204.3 L 215.8,198.4 L 224.6,193.5 L 234.2,189.9 L 244.4,187.6 L 255.0,186.6 L 265.8,187.1 L 276.6,189.0 L 287.1,192.4 L 297.2,197.1 L 306.5,203.2 L 314.9,210.5 L 322.0,218.9 L 327.7,228.3 L 331.8,238.5 L 334.1,249.2 L 334.5,260.4 L 332.9,271.7 L 329.4,282.9 L 323.9,293.8 L 316.6,304.1 L 307.7,313.6 L 297.2,322.0 L 285.4,329.2 L 272.5,334.8 L 258.8,338.8 L 244.4,340.9 L 229.8,341.2 L 215.1,339.4 L 200.7,335.7 L 186.9,330.0 L 174.0,322.5 L 162.3,313.3 L 152.0,302.4 L 143.4,290.1 L 136.6,276.6 L 132.0,262.1 L 129.5,246.9 L 129.4,231.2 L 131.7,215.4 L 136.3,199.7 L 143.3,184.4 L 152.5,169.8 L 163.9,156.1 L 177.2,143.7 L 192.2,132.8 L 208.8,123.6 L 226.7,116.3 L 245.5,111.0 L 264.9,107.9 L 284.6,107.0 L 304.3,108.3 L 323.7,111.9 L 342.3,117.7 L 359.8,125.6 L 375.8,135.5 L 390.1,147.2 L 402.2,160.7 L 411.9,175.6 L 418.9,191.7 L 423.0,208.9 L 424.0,226.7 L 421.8,245.0 L 416.4,263.3 L 407.9,281.3 L 396.4,298.7 L 382.1,315.2 L 365.3,330.4 L 346.2,344.0 L 325.2,355.8 L 302.7,365.3 L 279.0,372.5 L 254.6,377.2 L 229.8,379.1 L 205.2,378.3 L 181.1,374.7" class="mandala-stroke-line" stroke-dasharray="2100" stroke-dashoffset="2100" />
+        </svg>
+
+        <header class="section-header-block">
+          <div class="section-tag-row">
+            <span class="section-number">04 // BEYOND THE TERMINAL</span>
+          </div>
+          <h2 class="section-title serif-font">Passions & Cosmic Inquiries</h2>
+          <p class="section-lead">
+            The creative disciplines, philosophies, and harmonics that inform my engineering intuition.
+          </p>
+        </header>
+
+        <div class="editorial-hobbies-grid" id="hobbiesGrid">
+          <!-- Populated dynamically from portfolio-data.js -->
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------------
+           SECTION 5: CONTACT DETAILS & INQUIRY
+           ------------------------------------------------------------------ -->
+      <section id="contact" class="portfolio-section">
+        <!-- Cosmic Genesis & Flame Dissolution -->
+        <div class="cosmic-singularity" id="singularity-contact"></div>
+        <div class="genesis-shockwave-ring" id="shockwave-contact"></div>
+        <div class="genesis-radial-glow" id="radialglow-contact"></div>
+        <div class="destruction-flame-ring" id="flamering-contact"></div>
+        <svg class="genesis-mandala-svg" id="mandala-contact" viewBox="0 0 500 500" aria-hidden="true">
+          <circle cx="250" cy="250" r="235" class="mandala-stroke-line" stroke-dasharray="1480" stroke-dashoffset="1480" />
+          <circle cx="250" cy="250" r="195" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="1230" stroke-dashoffset="1230" />
+          <circle cx="250" cy="250" r="145" class="mandala-stroke-line" stroke-dasharray="915" stroke-dashoffset="915" />
+          <circle cx="250" cy="250" r="95" class="mandala-stroke-line" stroke-dasharray="600" stroke-dashoffset="600" />
+          <circle cx="250" cy="250" r="45" class="mandala-stroke-line mandala-stroke-accent" stroke-dasharray="285" stroke-dashoffset="285" />
+          <path d="M 265.0,250.0 L 266.9,252.4 L 268.5,255.3 L 269.4,258.7 L 269.8,262.4 L 269.5,266.4 L 268.4,270.6 L 266.5,274.9 L 263.7,279.1 L 260.1,283.0 L 255.7,286.6 L 250.6,289.7 L 244.8,292.1 L 238.6,293.9 L 232.0,294.8 L 225.2,294.8 L 218.4,293.9 L 211.8,292.0 L 205.6,289.0 L 200.0,285.0 L 195.1,280.0 L 191.1,274.1 L 188.1,267.3 L 186.2,259.9 L 185.5,251.9 L 186.1,243.6 L 188.0,235.1 L 191.1,226.7 L 195.6,218.6 L 201.2,211.1 L 208.0,204.3 L 215.8,198.4 L 224.6,193.5 L 234.2,189.9 L 244.4,187.6 L 255.0,186.6 L 265.8,187.1 L 276.6,189.0 L 287.1,192.4 L 297.2,197.1 L 306.5,203.2 L 314.9,210.5 L 322.0,218.9 L 327.7,228.3 L 331.8,238.5 L 334.1,249.2 L 334.5,260.4 L 332.9,271.7 L 329.4,282.9 L 323.9,293.8 L 316.6,304.1 L 307.7,313.6 L 297.2,322.0 L 285.4,329.2 L 272.5,334.8 L 258.8,338.8 L 244.4,340.9 L 229.8,341.2 L 215.1,339.4 L 200.7,335.7 L 186.9,330.0 L 174.0,322.5 L 162.3,313.3 L 152.0,302.4 L 143.4,290.1 L 136.6,276.6 L 132.0,262.1 L 129.5,246.9 L 129.4,231.2 L 131.7,215.4 L 136.3,199.7 L 143.3,184.4 L 152.5,169.8 L 163.9,156.1 L 177.2,143.7 L 192.2,132.8 L 208.8,123.6 L 226.7,116.3 L 245.5,111.0 L 264.9,107.9 L 284.6,107.0 L 304.3,108.3 L 323.7,111.9 L 342.3,117.7 L 359.8,125.6 L 375.8,135.5 L 390.1,147.2 L 402.2,160.7 L 411.9,175.6 L 418.9,191.7 L 423.0,208.9 L 424.0,226.7 L 421.8,245.0 L 416.4,263.3 L 407.9,281.3 L 396.4,298.7 L 382.1,315.2 L 365.3,330.4 L 346.2,344.0 L 325.2,355.8 L 302.7,365.3 L 279.0,372.5 L 254.6,377.2 L 229.8,379.1 L 205.2,378.3 L 181.1,374.7" class="mandala-stroke-line" stroke-dasharray="2100" stroke-dashoffset="2100" />
+        </svg>
+
+        <header class="section-header-block">
+          <div class="section-tag-row">
+            <span class="section-number">05 // INITIATE TRANSMISSION</span>
+          </div>
+          <h2 class="section-title serif-font">Connect & Collaborate</h2>
+          <p class="section-lead">
+            Whether you are envisioning a resilient distributed system or wish to discuss software architecture and sacred geometry, my inbox is open.
+          </p>
+        </header>
+
+        <div class="editorial-contact-split">
+          <!-- Direct Channels -->
+          <div class="contact-direct-col">
+            <div class="contact-direct-item">
+              <span class="item-label">Primary Email</span>
+              <span class="item-value">naitik.engineer@example.com</span>
+            </div>
+
+            <div class="contact-direct-item">
+              <span class="item-label">Location & Availability</span>
+              <span class="item-value">Global / Remote Across Timezones</span>
+            </div>
+
+            <div class="contact-direct-item">
+              <span class="item-label">Response Cadence</span>
+              <span class="item-value">Typically within 24 Hours</span>
+            </div>
+          </div>
+
+          <!-- Minimalist Underline Form -->
+          <form class="editorial-form" id="inquiryForm">
+            <div class="form-group-minimal">
+              <label for="senderName" class="minimal-label">Your Name</label>
+              <input type="text" id="senderName" class="minimal-input" placeholder="e.g. Maya Lin" required />
+            </div>
+            <div class="form-group-minimal">
+              <label for="senderEmail" class="minimal-label">Your Email</label>
+              <input type="email" id="senderEmail" class="minimal-input" placeholder="e.g. maya@example.com" required />
+            </div>
+            <div class="form-group-minimal">
+              <label for="senderSubject" class="minimal-label">Subject</label>
+              <input type="text" id="senderSubject" class="minimal-input" placeholder="e.g. Distributed System Collaboration" />
+            </div>
+            <div class="form-group-minimal">
+              <label for="senderMessage" class="minimal-label">Your Message</label>
+              <textarea id="senderMessage" class="minimal-textarea" placeholder="Describe your vision or inquiry..." required></textarea>
+            </div>
+            <button type="submit" class="minimal-submit-btn">
+              <span>Send Message</span>
+              <span>▸</span>
+            </button>
+            <div id="formStatusMsg" class="form-status-msg"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Editorial Footer -->
+      <footer class="editorial-footer">
+        <div class="footer-tribute">
+          Tribute to the 24-Spoke Konark Wheel of Surya & the Cosmic Prabhamandala of Nataraja.
+        </div>
+        <button class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          <span>▲ Back to Top</span>
+        </button>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toastNotice" class="toast-notice" role="status" aria-live="polite">
+    <span class="toast-icon">☸</span>
+    <span id="toastMessage">Notification message</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="portfolio-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

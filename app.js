@@ -1,16 +1,16 @@
 /**
  * ==========================================================================
- * KONARK & NATARAJ PORTFOLIO - CORE APPLICATION ENGINE
+ * NAITIK KUMAR PRADHAN — SOFTWARE ENGINEERING APPLICATION ENGINE
+ * Living Architectural Editorial Interface
  * Features:
- * 1. Loading screen: Centered chakra spins on load, smoothly goes still,
- *    and allows one-click or [Enter] entrance into the sanctuary.
- * 2. Background chakra: Stays in the back on the left, exactly half-visible.
- * 3. Rotates like a wheel: Smooth rolling physics synced to scroll (0.28 deg/px).
- * 4. Scroll effects: Dynamic solar flare & amber glow aura when scrolling.
- * 5. Strict center rotation: SVG native transform `rotate(angle 400 400)`.
- * 6. Translucent sidebar: Wheel in the back shines through the left panel.
- * 7. Dual toggle mode: "Scroll Sync" vs "Stay Still".
- * 8. Editorial data population, 1-click email copy, real-time local clock.
+ * 1. Background Konark Dial: Smooth inertia rotation physics synced to scroll
+ *    with scroll-velocity momentum, harmonic idle celestial breathing, and spoke pulse.
+ * 2. Astronomical 24-Spoke Telemetry: Real-time solar phase & spoke index readout.
+ * 3. Living Celestial Dust Canvas: Multi-layer cosmic particle depth with scroll parallax.
+ * 4. Dynamic Reading Progress Line & Gliding Nav Indicator Capsule.
+ * 5. GSAP ScrollTrigger Sequences: Staggered 3D card reveals, animated metric counters,
+ *    and interactive 3D mouse tilt with glass reflection sheen.
+ * 6. Telemetry & Contact: 1-click email copy, form handler, and real-time IST clock.
  * ==========================================================================
  */
 
@@ -19,22 +19,17 @@
 
   // Application State
   const state = {
-    isIntroActive: true,
     currentRotation: 0,
-    baseRotation: 0,
     targetRotation: 0,
     rotationMode: 'scroll', // 'scroll' | 'still'
-    scrollGlowTimer: null,
-    activeSection: 'about'
+    activeSection: 'about',
+    lastScrollY: 0,
+    scrollVelocity: 0,
+    lastSpokeIndex: 0
   };
 
   // DOM Elements Cache
   const DOM = {
-    introOverlay: document.getElementById('intro-overlay'),
-    introStage: document.getElementById('introChakraStage'),
-    introRotator: document.getElementById('introChakraRotator'),
-    entryPrompt: document.getElementById('introEntryPrompt'),
-    entryBtn: document.getElementById('enterPortfolioBtn'),
     backgroundChakraZone: document.getElementById('backgroundChakraZone'),
     chakraRotator: document.getElementById('chakraRotator'),
     spokeTracker: document.getElementById('chakraSpokeTracker'),
@@ -46,286 +41,167 @@
     toastMessage: document.getElementById('toastMessage'),
     localClock: document.getElementById('liveClockDisplay'),
     navLinks: document.querySelectorAll('.nav-link-item a'),
+    navTrackerBar: document.querySelector('.nav-tracker-bar'),
+    scrollProgressLine: document.getElementById('scrollProgressLine'),
+    navPillIndicator: document.getElementById('navPillIndicator'),
+    celestialDustCanvas: document.getElementById('celestialDustCanvas'),
     contactForm: document.getElementById('inquiryForm'),
     formStatus: document.getElementById('formStatusMsg')
   };
 
-  // 24 Cosmic Hours / Spoke Cycle Names (Konark 24-spoke Solar Dial)
+  // 24 Solar Spoke Phases of the Konark Sun Temple Chariot
   const SPOKE_CYCLE_NAMES = [
-    "Spoke I • The Cosmic Spark",
-    "Spoke II • Awakening of Matter",
-    "Spoke III • Rhythm & Vibration",
-    "Spoke IV • Creative Synthesis",
-    "Spoke V • Structural Foundations",
-    "Spoke VI • Fire of Transformation",
-    "Spoke VII • The Architect's Vision",
-    "Spoke VIII • Equilibrium & Harmony",
-    "Spoke IX • Dynamic Momentum",
-    "Spoke X • Expansion of Systems",
-    "Spoke XI • Resilient Boundaries",
-    "Spoke XII • Solar Zenith (Midday Sun)",
-    "Spoke XIII • Preservation & State",
-    "Spoke XIV • Algorithmic Flow",
-    "Spoke XV • Convergence of Forces",
-    "Spoke XVI • Scalability & Grace",
-    "Spoke XVII • The Infinite Loop",
-    "Spoke XVIII • Dissolution of Redundancy",
-    "Spoke XIX • Deep Reflection",
-    "Spoke XX • Cosmic Starlight",
-    "Spoke XXI • The Sacred Geometry",
-    "Spoke XXII • Transcendence of Form",
-    "Spoke XXIII • Silence Before Motion",
-    "Spoke XXIV • The Complete Cosmic Cycle"
+    "Prathama", "Dvitiya", "Tritiya", "Chaturthi",
+    "Panchami", "Shashthi", "Saptami", "Ashtami",
+    "Navami", "Dashami", "Ekadashi", "Dvadashi",
+    "Trayodashi", "Chaturdashi", "Purnima", "Pratipada",
+    "Dvitiya", "Tritiya", "Chaturthi", "Panchami",
+    "Shashthi", "Saptami", "Ashtami", "Amavasya"
   ];
 
   /* --------------------------------------------------------------------------
-     1. LOADING SCREEN: SPINS IN CENTER, GOES STILL, CLICK TO ENTER
-     -------------------------------------------------------------------------- */
-  function initLoadingSequence() {
-    // The creation/destruction page has its own entrance-free, pinned animation.
-    // Do not leave portfolio scroll effects blocked when its intro overlay is absent.
-    if (!DOM.introStage) {
-      state.isIntroActive = false;
-      return;
-    }
-    let spinSpeed = 2.5; // Initial spin speed in deg/frame
-    let introAngle = 0;
-    let isIntroSpinning = true;
-    if (DOM.backgroundChakraZone) DOM.backgroundChakraZone.classList.add('pre-entry');
-
-    function introSpinStep() {
-      if (isIntroSpinning) {
-        introAngle += spinSpeed;
-        const rotator = DOM.introRotator || document.getElementById('introChakraRotator');
-        if (rotator) {
-          // Rotate strictly around center (400, 400)
-          rotator.setAttribute('transform', `rotate(${introAngle.toFixed(2)} 400 400)`);
-        }
-        requestAnimationFrame(introSpinStep);
-      }
-    }
-    requestAnimationFrame(introSpinStep);
-
-    // After 1.4 seconds of smooth spinning, decelerate smoothly to still
-    setTimeout(() => {
-      let decelTimer = setInterval(() => {
-        spinSpeed *= 0.94;
-        if (spinSpeed < 0.04) {
-          clearInterval(decelTimer);
-          spinSpeed = 0;
-          isIntroSpinning = false;
-
-          // Reveal "Enter Portfolio" prompt
-          if (DOM.entryPrompt) {
-            DOM.entryPrompt.classList.add('ready');
-          }
-        }
-      }, 30);
-    }, 1400);
-
-    // Entrance handlers
-    function handleEnter() {
-      if (!state.isIntroActive) return;
-      state.isIntroActive = false;
-
-      // Stop the intro spin where it is; background wheel will continue from this angle
-      isIntroSpinning = false;
-      const overlay = DOM.introOverlay;
-      const stage = DOM.introStage;
-      const bg = DOM.backgroundChakraZone;
-
-      function finish() {
-        // Hand the angle over so the wheel doesn't jump, then scrolling takes over
-        state.baseRotation = introAngle;
-        state.currentRotation = introAngle + (state.rotationMode === 'scroll' ? window.scrollY * 0.28 : 0);
-        state.targetRotation = state.currentRotation;
-        if (bg) bg.classList.remove('pre-entry');
-        if (overlay) overlay.classList.add('dismissed');
-        showToast('☸ 24-Spoke Wheel Aligned • Welcome to Portfolio');
-      }
-
-      if (!overlay || !stage || !bg || !stage.animate) { finish(); return; }
-
-      overlay.classList.add('entering');
-      const from = stage.getBoundingClientRect();
-      const to = bg.getBoundingClientRect();
-      const dx = (to.left + to.width / 2) - (from.left + from.width / 2);
-      const dy = (to.top + to.height / 2) - (from.top + from.height / 2);
-      const s = to.width / from.width;
-
-      const anim = stage.animate([
-        { transform: 'translate(0,0) scale(1)' },
-        { transform: `translate(${dx}px, ${dy}px) scale(${s})` }
-      ], { duration: 1500, easing: 'cubic-bezier(0.65, 0, 0.25, 1)', fill: 'forwards' });
-
-      // Keep spinning while it travels and grows, easing down to a gentle speed
-      const t0 = performance.now();
-      const rotator = DOM.introRotator || document.getElementById('introChakraRotator');
-      (function travelSpin(now) {
-        const p = Math.min(1, (now - t0) / 1500);
-        introAngle += 3 * (1 - p) + 0.3;
-        if (rotator) rotator.setAttribute('transform', `rotate(${introAngle.toFixed(2)} 400 400)`);
-        if (p < 1) requestAnimationFrame(travelSpin);
-      })(t0);
-
-      anim.onfinish = () => {
-        // Make sure the final angle is applied before swapping to the background wheel
-        if (rotator) rotator.setAttribute('transform', `rotate(${introAngle.toFixed(2)} 400 400)`);
-        const bgRot = DOM.chakraRotator || document.getElementById('chakraRotator');
-        if (bgRot) bgRot.setAttribute('transform', `rotate(${introAngle.toFixed(2)} 400 400)`);
-        finish();
-      };
-    }
-
-    if (DOM.introStage) {
-      DOM.introStage.addEventListener('click', handleEnter);
-    }
-    if (DOM.entryBtn) {
-      DOM.entryBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        handleEnter();
-      });
-    }
-
-    // Enter or Space key support
-    window.addEventListener('keydown', function onKey(e) {
-      if (state.isIntroActive && (e.key === 'Enter' || e.key === ' ')) {
-        e.preventDefault();
-        handleEnter();
-      }
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     2. BACKGROUND CHAKRA: ROTATES LIKE A WHEEL WITH SCROLL EFFECTS
+     1. SCROLL-SYNCED KONARK ASTRONOMICAL DIAL ENGINE (Fluid Physics)
      -------------------------------------------------------------------------- */
   function initScrollWheelEngine() {
-    // The pinned creation/destruction timeline owns the chakra's scroll rotation.
-    if (document.getElementById('pinContainer')) return;
-    // Mode toggle buttons
-    if (DOM.modeScrollBtn) {
-      DOM.modeScrollBtn.addEventListener('click', () => setRotationMode('scroll'));
-    }
-    if (DOM.modeStillBtn) {
-      DOM.modeStillBtn.addEventListener('click', () => setRotationMode('still'));
+    const rotator = DOM.chakraRotator || document.getElementById('chakraRotator');
+    if (!rotator) return;
+
+    // Mode Toggle
+    function setRotationMode(mode) {
+      state.rotationMode = mode;
+      if (DOM.modeScrollBtn && DOM.modeStillBtn) {
+        if (mode === 'scroll') {
+          DOM.modeScrollBtn.classList.add('active');
+          DOM.modeStillBtn.classList.remove('active');
+          showToast('Dial synchronized with scroll');
+        } else {
+          DOM.modeStillBtn.classList.add('active');
+          DOM.modeScrollBtn.classList.remove('active');
+          showToast('Dial locked in static position');
+        }
+      }
     }
 
-    // Clicking the background wheel or spoke tracker nudges by 1 spoke (+15 deg)
-    if (DOM.backgroundChakraZone) {
-      DOM.backgroundChakraZone.addEventListener('click', nudgeWheelSpoke);
-    }
-    if (DOM.spokeTracker) {
-      DOM.spokeTracker.addEventListener('click', nudgeWheelSpoke);
-    }
+    if (DOM.modeScrollBtn) DOM.modeScrollBtn.addEventListener('click', () => setRotationMode('scroll'));
+    if (DOM.modeStillBtn) DOM.modeStillBtn.addEventListener('click', () => setRotationMode('still'));
 
-    // Scroll listener
+    // Scroll tracking: calculate rotation target and velocity
+    function onPageScroll() {
+      const scrollY = window.scrollY;
+      const delta = scrollY - state.lastScrollY;
+      state.scrollVelocity = delta;
+      state.lastScrollY = scrollY;
+
+      if (state.rotationMode === 'scroll') {
+        state.targetRotation = scrollY * 0.28;
+      }
+
+      updateScrollProgress();
+      updateActiveNavSection();
+    }
     window.addEventListener('scroll', onPageScroll, { passive: true });
+
+    // Smooth RAF physics loop: rock-solid concentric rotation, zero wobble + rolling flare
+    function renderLoop() {
+      if (state.rotationMode === 'scroll') {
+        const diff = state.targetRotation - state.currentRotation;
+        // Smooth ease interpolation
+        state.currentRotation += diff * 0.08;
+
+        if (rotator) {
+          // Strictly rotate around exact center (400, 400) with zero scaling or wobble
+          rotator.setAttribute(
+            'transform',
+            `rotate(${state.currentRotation.toFixed(2)} 400 400)`
+          );
+        }
+
+        // Toggle rolling solar flare effect based on scroll velocity
+        if (DOM.backgroundChakraZone) {
+          if (Math.abs(diff) > 0.35) {
+            DOM.backgroundChakraZone.classList.add('is-rolling');
+          } else {
+            DOM.backgroundChakraZone.classList.remove('is-rolling');
+          }
+        }
+
+        updateSpokeIndicator(state.currentRotation);
+      } else {
+        // Static mode: fixed position around center (400, 400)
+        if (rotator) {
+          rotator.setAttribute('transform', 'rotate(0 400 400)');
+        }
+        if (DOM.backgroundChakraZone) {
+          DOM.backgroundChakraZone.classList.remove('is-rolling');
+        }
+      }
+
+      requestAnimationFrame(renderLoop);
+    }
+    requestAnimationFrame(renderLoop);
+
+    // Initial trigger
     onPageScroll();
-
-    // 60 FPS animation loop with smooth lerp physics
-    requestAnimationFrame(renderLoop);
   }
 
-  function setRotationMode(mode) {
-    state.rotationMode = mode;
-
-    if (mode === 'scroll') {
-      DOM.modeScrollBtn.classList.add('active');
-      DOM.modeStillBtn.classList.remove('active');
-      showToast('☸ Wheel: Synced with Scroll');
-    } else {
-      DOM.modeStillBtn.classList.add('active');
-      DOM.modeScrollBtn.classList.remove('active');
-      showToast('🔒 Wheel: Locked Still');
-    }
-  }
-
-  function onPageScroll() {
-    if (state.rotationMode === 'scroll') {
-      // ROTATE LIKE A WHEEL: 0.28 degrees per pixel of scroll!
-      // Scrolling down rolls the wheel forward (clockwise); scrolling up rolls backward!
-      state.targetRotation = state.baseRotation + window.scrollY * 0.28;
-
-      // Dynamic Solar Flare Effect on Scroll ("with some effects as it scroll")
-      if (DOM.backgroundChakraZone) {
-        DOM.backgroundChakraZone.classList.add('is-scrolling');
-        clearTimeout(state.scrollGlowTimer);
-        state.scrollGlowTimer = setTimeout(() => {
-          DOM.backgroundChakraZone.classList.remove('is-scrolling');
-        }, 160);
-      }
-    }
-
-    // Scroll spy for navigation
-    updateActiveNavSection();
-  }
-
-  function renderLoop() {
-    // Lerp interpolation for buttery smooth rotation
-    const diff = state.targetRotation - state.currentRotation;
-    if (Math.abs(diff) > 0.01) {
-      state.currentRotation += diff * 0.12;
-
-      // Apply exact SVG center rotation around (400, 400)
-      const rotator = DOM.chakraRotator || document.getElementById('chakraRotator');
-      if (rotator) {
-        rotator.setAttribute('transform', `rotate(${state.currentRotation.toFixed(2)} 400 400)`);
-      }
-
-      // Update active spoke indicator
-      updateSpokeIndicator(calculateCurrentSpokeIndex(state.currentRotation));
-    }
-
-    requestAnimationFrame(renderLoop);
-  }
-
-  function nudgeWheelSpoke() {
-    state.targetRotation += 15; // Advance exactly one spoke (15 deg)
-    if (state.rotationMode === 'still') {
-      state.currentRotation += 15;
-      const rotator = DOM.chakraRotator || document.getElementById('chakraRotator');
-      if (rotator) {
-        rotator.setAttribute('transform', `rotate(${state.currentRotation.toFixed(2)} 400 400)`);
-      }
-      updateSpokeIndicator(calculateCurrentSpokeIndex(state.currentRotation));
-    }
-    // Solar pulse effect on click
-    if (DOM.backgroundChakraZone) {
-      DOM.backgroundChakraZone.classList.add('is-scrolling');
-      setTimeout(() => {
-        DOM.backgroundChakraZone.classList.remove('is-scrolling');
-      }, 400);
-    }
-    showToast(`☸ Spoke: ${SPOKE_CYCLE_NAMES[calculateCurrentSpokeIndex(state.currentRotation)]}`);
-  }
-
-  function calculateCurrentSpokeIndex(angleDeg) {
-    const normalized = ((angleDeg % 360) + 360) % 360;
+  function calculateCurrentSpokeIndex(angle) {
+    const normalized = ((angle % 360) + 360) % 360;
     return Math.floor(normalized / 15) % 24;
   }
 
-  function updateSpokeIndicator(index) {
+  function updateSpokeIndicator(angle) {
     if (!DOM.spokeTracker) return;
-    const name = SPOKE_CYCLE_NAMES[index] || `Spoke ${index + 1} / 24`;
-    DOM.spokeTracker.textContent = name;
+    const spokeIdx = calculateCurrentSpokeIndex(angle);
+    const spokeNum = String(spokeIdx + 1).padStart(2, '0');
+    const phaseName = SPOKE_CYCLE_NAMES[spokeIdx] || 'Solar Phase';
+
+    // Trigger subtle pulse animation on spoke change
+    if (state.lastSpokeIndex !== spokeIdx) {
+      state.lastSpokeIndex = spokeIdx;
+      DOM.spokeTracker.classList.remove('tick-pulse');
+      // trigger reflow
+      void DOM.spokeTracker.offsetWidth;
+      DOM.spokeTracker.classList.add('tick-pulse');
+    }
+
+    DOM.spokeTracker.textContent = `Solar dial: Spoke ${spokeNum} / 24 • ${phaseName}`;
   }
 
   /* --------------------------------------------------------------------------
-     3. EDITORIAL SCROLL SPY
+     2. READING PROGRESS LINE & GLIDING ACTIVE NAV CAPSULE
      -------------------------------------------------------------------------- */
+  function updateScrollProgress() {
+    const scrollY = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+
+    if (DOM.scrollProgressLine) {
+      DOM.scrollProgressLine.style.width = `${progress.toFixed(1)}%`;
+    }
+
+    if (DOM.navTrackerBar) {
+      if (scrollY > 30) {
+        DOM.navTrackerBar.classList.add('scrolled');
+      } else {
+        DOM.navTrackerBar.classList.remove('scrolled');
+      }
+    }
+  }
+
   function updateActiveNavSection() {
-    const sections = ['about', 'history', 'projects', 'hobbies', 'contact'];
-    const scrollPos = window.scrollY + 180;
+    const sections = ['about', 'history', 'projects', 'hobbies', 'contact', 'chakra-defense'];
+    const scrollPos = window.scrollY + 220;
 
     for (let i = sections.length - 1; i >= 0; i--) {
-      const el = document.getElementById(sections[i]);
-      if (el && el.offsetTop <= scrollPos) {
+      const secEl = document.getElementById(sections[i]);
+      if (secEl && secEl.offsetTop <= scrollPos) {
         if (state.activeSection !== sections[i]) {
           state.activeSection = sections[i];
           DOM.navLinks.forEach(link => {
-            const href = link.getAttribute('href').replace('#', '');
-            if (href === sections[i]) {
+            const href = link.getAttribute('href');
+            if (href === `#${sections[i]}`) {
               link.classList.add('active');
+              positionNavPillIndicator(link);
             } else {
               link.classList.remove('active');
             }
@@ -336,8 +212,127 @@
     }
   }
 
+  function positionNavPillIndicator(activeLink) {
+    if (!DOM.navPillIndicator || !activeLink) return;
+    const parent = activeLink.closest('.nav-links-list');
+    if (!parent) return;
+
+    const parentRect = parent.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    const left = linkRect.left - parentRect.left;
+    const top = linkRect.top - parentRect.top;
+    const width = linkRect.width;
+    const height = linkRect.height;
+
+    DOM.navPillIndicator.style.transform = `translate(${left}px, ${top}px)`;
+    DOM.navPillIndicator.style.width = `${width}px`;
+    DOM.navPillIndicator.style.height = `${height}px`;
+    DOM.navPillIndicator.style.opacity = '1';
+  }
+
+  // Smooth click scroll with pill glide
+  DOM.navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          positionNavPillIndicator(link);
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
   /* --------------------------------------------------------------------------
-     4. DYNAMIC DATA POPULATION (EDITORIAL VERTICAL FLOW, NO BOXY CARDS)
+     3. LIVING CELESTIAL DUST CANVAS (Scroll Parallax Particles)
+     -------------------------------------------------------------------------- */
+  function initCelestialDustCanvas() {
+    const canvas = DOM.celestialDustCanvas;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    const PARTICLE_COUNT = 38;
+
+    const colors = [
+      'rgba(200, 66, 24, ',  // terracotta
+      'rgba(234, 88, 12, ',  // warm orange
+      'rgba(180, 160, 140, ', // warm bronze
+      'rgba(245, 158, 11, '  // golden solar
+    ];
+
+    function resizeCanvas() {
+      const parent = canvas.parentElement;
+      width = canvas.width = parent ? parent.offsetWidth : window.innerWidth;
+      height = canvas.height = parent ? parent.offsetHeight : window.innerHeight;
+    }
+
+    function createParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          baseY: Math.random() * height,
+          radius: Math.random() * 2.2 + 0.8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          alpha: Math.random() * 0.45 + 0.15,
+          speedX: (Math.random() - 0.5) * 0.25,
+          speedY: (Math.random() - 0.5) * 0.2,
+          parallaxFactor: Math.random() * 0.25 + 0.05,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      createParticles();
+    });
+
+    resizeCanvas();
+    createParticles();
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      const scrollY = window.scrollY;
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.speedX;
+        p.phase += 0.02;
+
+        // Wrap around boundaries
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+
+        // Apply gentle floating + scroll parallax
+        const floatY = Math.sin(p.phase) * 8;
+        const parallaxY = (scrollY * p.parallaxFactor) % height;
+        let drawY = (p.baseY - parallaxY + floatY) % height;
+        if (drawY < 0) drawY += height;
+
+        // Draw soft radiant particle
+        const currentAlpha = p.alpha * (0.8 + Math.sin(p.phase) * 0.2);
+        ctx.beginPath();
+        ctx.arc(p.x, drawY, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + currentAlpha.toFixed(3) + ')';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(renderCanvas);
+    }
+    requestAnimationFrame(renderCanvas);
+  }
+
+  /* --------------------------------------------------------------------------
+     4. EDITORIAL CONTENT POPULATION (DATA-DRIVEN)
      -------------------------------------------------------------------------- */
   function populatePortfolioContent() {
     if (typeof PORTFOLIO_DATA === 'undefined') return;
@@ -356,7 +351,7 @@
       if (copyValEl && data.personal.email) copyValEl.textContent = data.personal.email;
     }
 
-    // Section 1: Introduction (Narrative & Skills)
+    // Section 1: About (Narrative, Metrics, Skills)
     if (data.about) {
       const headlineEl = document.getElementById('narrativeHeadline');
       const bodyEl = document.getElementById('narrativeBody');
@@ -372,7 +367,7 @@
       if (metricsEl && Array.isArray(data.about.highlights)) {
         metricsEl.innerHTML = data.about.highlights.map(item => `
           <div class="metric-cell">
-            <div class="metric-number">${item.metric}</div>
+            <div class="metric-number" data-target="${item.metric}">${item.metric}</div>
             <div class="metric-label">${item.label}</div>
           </div>
         `).join('');
@@ -390,7 +385,7 @@
       }
     }
 
-    // Section 2: History (Editorial Timeline Stream)
+    // Section 2: History (Experience Timeline)
     if (Array.isArray(data.history)) {
       const historyEl = document.getElementById('historyStream');
       if (historyEl) {
@@ -420,21 +415,21 @@
       }
     }
 
-    // Section 3: Projects (Clean Case Studies)
+    // Section 3: Projects (Case Studies)
     if (Array.isArray(data.projects)) {
       const projectsEl = document.getElementById('projectsStream');
       if (projectsEl) {
         projectsEl.innerHTML = data.projects.map((proj, idx) => `
-          <article class="project-case-study">
+          <article class="project-case-study" data-tilt="true">
             <div class="project-meta-row">
-              <span class="project-index-tag">PROJ // 0${idx + 1}</span>
+              <span class="project-index-tag">0${idx + 1}</span>
               <span class="project-category">${proj.category}</span>
             </div>
-            <h3 class="project-title serif-font">${proj.title}</h3>
+            <h3 class="project-title">${proj.title}</h3>
             <p class="project-desc">${proj.description}</p>
             ${proj.metrics ? `
               <div class="project-metrics-line">
-                <span class="metrics-bullet">⚡</span>
+                <span class="metrics-bullet">▪</span>
                 <span>${proj.metrics}</span>
               </div>
             ` : ''}
@@ -444,13 +439,13 @@
             <div class="project-actions-row">
               ${proj.githubUrl ? `
                 <a href="${proj.githubUrl}" target="_blank" rel="noopener noreferrer" class="editorial-link">
-                  <span>Source Code</span>
+                  <span>Source code</span>
                   <span>↗</span>
                 </a>
               ` : ''}
               ${proj.demoUrl ? `
                 <a href="${proj.demoUrl}" target="_blank" rel="noopener noreferrer" class="editorial-link">
-                  <span>Live Demonstration</span>
+                  <span>Demonstration</span>
                   <span>↗</span>
                 </a>
               ` : ''}
@@ -460,14 +455,20 @@
       }
     }
 
-    // Section 4: Hobbies (Editorial Essays)
+    // Section 4: Hobbies & Essays
     if (Array.isArray(data.hobbies)) {
       const hobbiesEl = document.getElementById('hobbiesGrid');
       if (hobbiesEl) {
-        hobbiesEl.innerHTML = data.hobbies.map(hobby => `
+        const hobbyIcons = [
+          `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="4.93" y1="4.93" x2="9.17" y2="9.17"/><line x1="14.83" y1="14.83" x2="19.07" y2="19.07"/></svg>`,
+          `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+          `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 10v4M6 6v12M10 3v18M14 8v8M18 5v14M22 10v4"/></svg>`
+        ];
+
+        hobbiesEl.innerHTML = data.hobbies.map((hobby, idx) => `
           <article class="hobby-article">
-            <div class="hobby-glyph-accent">${hobby.glyph || '☸'}</div>
-            <h3 class="hobby-title serif-font">${hobby.title}</h3>
+            <div class="hobby-glyph-accent">${hobbyIcons[idx] || hobbyIcons[0]}</div>
+            <h3 class="hobby-title">${hobby.title}</h3>
             <div class="hobby-tagline">${hobby.tagline}</div>
             <p class="hobby-narrative">${hobby.narrative}</p>
             ${hobby.quote ? `
@@ -480,48 +481,394 @@
   }
 
   /* --------------------------------------------------------------------------
-     5. CONTACT INTERACTIONS & REAL-TIME LOCAL CLOCK
+     5. LOADING INTRO & GSAP SCROLLTRIGGER SEQUENCES
+     -------------------------------------------------------------------------- */
+  function initWheelIntro() {
+    const chakraZone = DOM.backgroundChakraZone;
+    const mainEl = document.getElementById('portfolio-main');
+    const greetingsOverlay = document.getElementById('greetingsOverlay');
+    if (!chakraZone || typeof gsap === 'undefined') {
+      document.body.classList.remove('intro-active', 'greetings-active');
+      return;
+    }
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      document.body.classList.remove('intro-active', 'greetings-active');
+      return;
+    }
+
+    document.body.classList.add('intro-active', 'greetings-active');
+
+    // Start centered and smaller in loading state so it stays well inside the viewport
+    gsap.set(chakraZone, {
+      left: '70%',
+      top: '100%',
+      xPercent: -50,
+      yPercent: -50,
+      scale: 0.45,
+      opacity: 0
+    });
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        showGreetingsOverlay(greetingsOverlay, chakraZone, mainEl);
+      }
+    });
+
+    tl.to(chakraZone, {
+      opacity: 1,
+      scale: 0.54,
+      duration: 0.65,
+      ease: 'power2.out'
+    })
+      .to(state, {
+        targetRotation: 45,
+        duration: 0.75,
+        ease: 'power2.inOut'
+      }, '<');
+  }
+
+  function showGreetingsOverlay(greetingsOverlay, chakraZone, mainEl) {
+    if (!greetingsOverlay) {
+      document.body.classList.remove('intro-active', 'greetings-active');
+      if (chakraZone) gsap.set(chakraZone, { clearProps: 'left,top,xPercent,yPercent,scale,opacity' });
+      if (mainEl) gsap.to(mainEl, { opacity: 1, duration: 0.5 });
+      return;
+    }
+
+    greetingsOverlay.classList.add('is-visible');
+    greetingsOverlay.setAttribute('aria-hidden', 'false');
+    gsap.fromTo(greetingsOverlay,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.55, ease: 'power2.out' }
+    );
+
+    let dismissed = false;
+    function dismissGreetings(e) {
+      if (dismissed) return;
+      if (e && e.type === 'keydown' && e.code !== 'Space') return;
+      if (e && e.type === 'keydown' && e.code === 'Space') {
+        e.preventDefault();
+      }
+      dismissed = true;
+
+      window.removeEventListener('click', dismissGreetings);
+      window.removeEventListener('wheel', dismissGreetings);
+      window.removeEventListener('touchstart', dismissGreetings);
+      window.removeEventListener('keydown', dismissGreetings);
+
+      const exitTl = gsap.timeline({
+        onComplete: () => {
+          greetingsOverlay.classList.remove('is-visible');
+          greetingsOverlay.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('intro-active', 'greetings-active');
+          if (chakraZone) {
+            gsap.set(chakraZone, { clearProps: 'left,top,xPercent,yPercent,scale,opacity' });
+          }
+        }
+      });
+
+      exitTl.to(greetingsOverlay, {
+        opacity: 0,
+        duration: 0.45,
+        ease: 'power2.inOut'
+      })
+        .to(chakraZone, {
+          left: '0%',
+          xPercent: -50,
+          yPercent: -50,
+          scale: 1,
+          duration: 0.9,
+          ease: 'power3.inOut'
+        }, '-=0.2')
+        .to(mainEl, {
+          opacity: 1,
+          duration: 0.55,
+          ease: 'power2.out'
+        }, '-=0.45');
+    }
+
+    window.addEventListener('click', dismissGreetings);
+    window.addEventListener('wheel', dismissGreetings, { passive: true });
+    window.addEventListener('touchstart', dismissGreetings, { passive: true });
+    window.addEventListener('keydown', dismissGreetings);
+  }
+
+  function initScrollTriggerSequences() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initial position of navigation pill
+    const firstActiveLink = document.querySelector('.nav-link-item a.active');
+    if (firstActiveLink) {
+      setTimeout(() => positionNavPillIndicator(firstActiveLink), 150);
+    }
+
+    // 1. Section Headers & Lead Text Entrance
+    const sections = document.querySelectorAll('.portfolio-section');
+    sections.forEach(sec => {
+      const header = sec.querySelector('.section-header-block');
+      if (header) {
+        gsap.fromTo(header,
+          { opacity: 0, y: 30, scale: 0.98 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'top 86%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      }
+    });
+
+    // Narrative & Lab Cards Entrance
+    const narrativeBlocks = document.querySelectorAll('.editorial-narrative-block, .defense-game');
+    narrativeBlocks.forEach(block => {
+      gsap.fromTo(block,
+        { opacity: 0, y: 28, scale: 0.98 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: block,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    // 2. Animated Metric Counters
+    const metricsStrip = document.getElementById('metricsStrip');
+    if (metricsStrip) {
+      ScrollTrigger.create({
+        trigger: metricsStrip,
+        start: 'top 85%',
+        once: true,
+        onEnter: () => {
+          const cells = metricsStrip.querySelectorAll('.metric-cell');
+          cells.forEach((cell, idx) => {
+            gsap.fromTo(cell,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 0.6, delay: idx * 0.1, ease: 'power2.out' }
+            );
+
+            const numEl = cell.querySelector('.metric-number');
+            if (numEl) {
+              const text = numEl.textContent.trim();
+              if (text.includes('5+')) {
+                animateCounter(numEl, 0, 5, '+ Years');
+              } else if (text.includes('99.99')) {
+                animateCounterFloat(numEl, 90.00, 99.99, '%');
+              } else if (text.includes('15') || text.includes('50')) {
+                animateCounter(numEl, 60, 15, 'ms', '<');
+              } else if (text.includes('24')) {
+                animateCounter(numEl, 0, 24, ' Spokes');
+              }
+            }
+          });
+        }
+      });
+    }
+
+    // Helper: Integer Counter
+    function animateCounter(el, start, end, suffix, prefix = '') {
+      const obj = { val: start };
+      gsap.to(obj, {
+        val: end,
+        duration: 1.5,
+        ease: 'power2.out',
+        onUpdate: () => {
+          el.textContent = `${prefix}${Math.round(obj.val)}${suffix}`;
+        }
+      });
+    }
+
+    // Helper: Float Counter
+    function animateCounterFloat(el, start, end, suffix) {
+      const obj = { val: start };
+      gsap.to(obj, {
+        val: end,
+        duration: 1.8,
+        ease: 'power2.out',
+        onUpdate: () => {
+          el.textContent = `${obj.val.toFixed(2)}${suffix}`;
+        }
+      });
+    }
+
+    // 3. Staggered Timeline History Entries
+    const historyEntries = document.querySelectorAll('.history-entry');
+    if (historyEntries.length > 0) {
+      historyEntries.forEach((entry, idx) => {
+        gsap.fromTo(entry,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: entry,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+    }
+
+    // 4. Staggered 3D Project Cards with Tilt Physics
+    const projectCards = document.querySelectorAll('.project-case-study');
+    if (projectCards.length > 0) {
+      projectCards.forEach((card, idx) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 36, rotateX: 3 },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.75,
+            delay: idx * 0.12,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 86%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+
+        // Interactive 3D cursor tilt
+        initCardTilt(card);
+      });
+    }
+
+    // 5. Staggered Hobbies & Interests Cards
+    const hobbyCards = document.querySelectorAll('.hobby-article');
+    if (hobbyCards.length > 0) {
+      hobbyCards.forEach((card, idx) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            delay: idx * 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
+    }
+
+    // 6. Skill Tags Wave Reveal
+    const skillCategories = document.querySelectorAll('.skill-category-block');
+    skillCategories.forEach(cat => {
+      const tags = cat.querySelectorAll('.skill-tag-item');
+      gsap.fromTo(tags,
+        { opacity: 0, scale: 0.88 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.4,
+          stagger: 0.03,
+          ease: 'back.out(1.5)',
+          scrollTrigger: {
+            trigger: cat,
+            start: 'top 88%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+  }
+
+  // Interactive 3D Tilt on Mousemove for Cards
+  function initCardTilt(card) {
+    if (!card) return;
+
+    function handleMouseMove(e) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = ((y - centerY) / centerY) * -4.5;
+      const rotateY = ((x - centerX) / centerX) * 4.5;
+
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-3px)`;
+    }
+
+    function handleMouseLeave() {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    }
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+  }
+
+  /* --------------------------------------------------------------------------
+     6. CONTACT INTERACTIONS & REAL-TIME LOCAL CLOCK
      -------------------------------------------------------------------------- */
   function initContactInteractions() {
     // 1-Click Email copy
     if (DOM.copyEmailBtn) {
       DOM.copyEmailBtn.addEventListener('click', () => {
-        const emailText = DOM.copyEmailVal ? DOM.copyEmailVal.textContent.trim() : 'naitik.engineer@example.com';
+        const emailText = DOM.copyEmailVal ? DOM.copyEmailVal.textContent.trim() : 'naitikkumarpradhan@gmail.com';
         navigator.clipboard.writeText(emailText).then(() => {
-          showToast(`✓ Copied: ${emailText}`);
+          showToast(`Email copied: ${emailText}`);
         }).catch(() => {
-          showToast(`Direct Email: ${emailText}`);
+          showToast(`Email: ${emailText}`);
         });
       });
     }
 
-    // Minimalist contact form submission
+    // Contact form submission
     if (DOM.contactForm) {
       DOM.contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const submitBtn = DOM.contactForm.querySelector('.minimal-submit-btn');
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Transmitting... ☸';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending message...';
+        }
 
         setTimeout(() => {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = 'Transmission Received ✓';
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Message sent';
+          }
           if (DOM.formStatus) {
-            DOM.formStatus.textContent = 'Thank you. Your message has entered my inbox cycle.';
+            DOM.formStatus.textContent = 'Thank you. Your message has been sent.';
             DOM.formStatus.className = 'form-status-msg success';
           }
-          showToast('✓ Message received. I will respond within 24 hours.');
+          showToast('Message sent. Reply within 24 hours.');
           DOM.contactForm.reset();
 
           setTimeout(() => {
-            submitBtn.innerHTML = `Send Message ▸`;
-            if (DOM.formStatus) DOM.formStatus.className = 'form-status-msg';
-          }, 3500);
-        }, 800);
+            if (submitBtn) submitBtn.textContent = 'Send Message ▸';
+          }, 4000);
+        }, 600);
       });
     }
 
-    // Update local clock (24-hour Konark solar cycle)
+    // Real-time IST clock update
     updateLocalClock();
     setInterval(updateLocalClock, 1000);
   }
@@ -529,488 +876,36 @@
   function showToast(message) {
     if (!DOM.toastNotice || !DOM.toastMessage) return;
     DOM.toastMessage.textContent = message;
-    DOM.toastNotice.classList.add('show');
-    clearTimeout(DOM.toastTimer);
-    DOM.toastTimer = setTimeout(() => {
-      DOM.toastNotice.classList.remove('show');
-    }, 3000);
+    DOM.toastNotice.classList.add('visible');
+
+    if (window._toastTimer) clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => {
+      DOM.toastNotice.classList.remove('visible');
+    }, 2800);
   }
 
   function updateLocalClock() {
     if (!DOM.localClock) return;
     const now = new Date();
-    const h = String(now.getHours()).padStart(2, '0');
-    const m = String(now.getMinutes()).padStart(2, '0');
-    const s = String(now.getSeconds()).padStart(2, '0');
-    DOM.localClock.textContent = `${h}:${m}:${s} LOCAL`;
+    // Calculate IST (UTC + 5:30)
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+    const istDate = new Date(utc + (3600000 * 5.5));
+    const h = String(istDate.getHours()).padStart(2, '0');
+    const m = String(istDate.getMinutes()).padStart(2, '0');
+    const s = String(istDate.getSeconds()).padStart(2, '0');
+    DOM.localClock.textContent = `${h}:${m}:${s} IST`;
   }
 
   /* --------------------------------------------------------------------------
-     6. FULLSCREEN COSMIC CANVAS: INWARD SWIRL, NATARAJA EMBERS & CLICK SPARKS
-     -------------------------------------------------------------------------- */
-  let cosmicCanvasEngine = null;
-
-  function initCosmicCanvasEngine() {
-    // The pinned animation page has its own particle canvas engine.
-    if (document.getElementById('pinContainer')) return;
-    const canvas = document.getElementById('cosmicCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    const particles = [];
-    const colors = ['#ffcc00', '#f2541b', '#ff7236', '#ffe680', '#ffffff'];
-
-    // Inward swirling cosmic dust particle
-    class SwirlDustParticle {
-      constructor(centerX, centerY) {
-        this.cx = centerX;
-        this.cy = centerY;
-        this.angle = Math.random() * Math.PI * 2;
-        this.radius = 180 + Math.random() * 320;
-        this.speed = 0.03 + Math.random() * 0.04;
-        this.radialSpeed = 1.8 + Math.random() * 2.8;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.size = 1.2 + Math.random() * 2.5;
-        this.alpha = 0.25 + Math.random() * 0.7;
-        this.alive = true;
-      }
-      update() {
-        this.angle += this.speed;
-        this.radius -= this.radialSpeed;
-        if (this.radius <= 10) this.alive = false;
-        this.x = this.cx + Math.cos(this.angle) * this.radius;
-        this.y = this.cy + Math.sin(this.angle) * this.radius;
-      }
-      draw(c) {
-        c.save();
-        c.globalAlpha = Math.max(0, this.alpha * (this.radius / 280));
-        c.fillStyle = this.color;
-        c.shadowBlur = 10;
-        c.shadowColor = this.color;
-        c.beginPath();
-        c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        c.fill();
-        c.restore();
-      }
-    }
-
-    // Rising Nataraja Embers particle
-    class RisingEmberParticle {
-      constructor(x, y) {
-        this.x = x + (Math.random() - 0.5) * 360;
-        this.y = y + (Math.random() - 0.5) * 200;
-        this.vx = (Math.random() - 0.5) * 2.2;
-        this.vy = -(1.5 + Math.random() * 3.5);
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.size = 1.5 + Math.random() * 3;
-        this.alpha = 0.85 + Math.random() * 0.15;
-        this.decay = 0.012 + Math.random() * 0.02;
-        this.alive = true;
-      }
-      update() {
-        this.x += this.vx + Math.sin(this.y * 0.02) * 1.2;
-        this.y += this.vy;
-        this.alpha -= this.decay;
-        this.size *= 0.985;
-        if (this.alpha <= 0.02 || this.size <= 0.3) this.alive = false;
-      }
-      draw(c) {
-        c.save();
-        c.globalAlpha = Math.max(0, this.alpha);
-        c.fillStyle = this.color;
-        c.shadowBlur = 12;
-        c.shadowColor = this.color;
-        c.beginPath();
-        c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        c.fill();
-        c.restore();
-      }
-    }
-
-    // Click Stardust Spark
-    class ClickSparkParticle {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 2.5 + Math.random() * 7;
-        this.vx = Math.cos(angle) * speed;
-        this.vy = Math.sin(angle) * speed;
-        this.color = colors[Math.floor(Math.random() * colors.length)];
-        this.size = 2 + Math.random() * 3;
-        this.alpha = 1;
-        this.gravity = 0.18;
-        this.drag = 0.95;
-        this.alive = true;
-      }
-      update() {
-        this.vx *= this.drag;
-        this.vy = this.vy * this.drag + this.gravity;
-        this.x += this.vx;
-        this.y += this.vy;
-        this.alpha -= 0.028;
-        this.size *= 0.97;
-        if (this.alpha <= 0.02 || this.size <= 0.4) this.alive = false;
-      }
-      draw(c) {
-        c.save();
-        c.globalAlpha = Math.max(0, this.alpha);
-        c.fillStyle = this.color;
-        c.shadowBlur = 14;
-        c.shadowColor = this.color;
-        c.beginPath();
-        c.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        c.fill();
-        c.restore();
-      }
-    }
-
-    function renderParticles() {
-      ctx.clearRect(0, 0, width, height);
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.update();
-        if (p.alive) {
-          p.draw(ctx);
-        } else {
-          particles.splice(i, 1);
-        }
-      }
-      requestAnimationFrame(renderParticles);
-    }
-    requestAnimationFrame(renderParticles);
-
-    cosmicCanvasEngine = {
-      spawnInwardDust(cx, cy, count = 28) {
-        for (let i = 0; i < count; i++) particles.push(new SwirlDustParticle(cx, cy));
-      },
-      spawnNatarajaEmbers(cx, cy, count = 35) {
-        for (let i = 0; i < count; i++) particles.push(new RisingEmberParticle(cx, cy));
-      },
-      triggerClickBurst(x, y) {
-        for (let i = 0; i < 24; i++) particles.push(new ClickSparkParticle(x, y));
-
-        const ring = document.createElement('div');
-        ring.className = 'cosmic-click-ring';
-        ring.style.left = `${x}px`;
-        ring.style.top = `${y}px`;
-        ring.style.width = '40px';
-        ring.style.height = '40px';
-        document.body.appendChild(ring);
-
-        if (window.gsap) {
-          gsap.to(ring, {
-            scale: 4.5,
-            opacity: 0,
-            duration: 0.65,
-            ease: 'power2.out',
-            onComplete: () => ring.remove()
-          });
-        } else {
-          setTimeout(() => ring.remove(), 600);
-        }
-      }
-    };
-
-    // Universal Click Burst everywhere
-    window.addEventListener('pointerdown', (e) => {
-      cosmicCanvasEngine.triggerClickBurst(e.clientX, e.clientY);
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     7. BIDIRECTIONAL COSMIC CREATION & DESTRUCTION SCROLL ENGINE
-     -------------------------------------------------------------------------- */
-  function initCosmicCreationDestruction() {
-    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Split text into characters helper
-    function splitTextToChars(element) {
-      if (!element || element.dataset.splitDone) return [];
-      const text = element.textContent.trim();
-      const words = text.split(/\s+/);
-      element.innerHTML = '';
-      element.dataset.splitDone = 'true';
-      const chars = [];
-
-      words.forEach(word => {
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'cosmic-word';
-        for (let char of word) {
-          const charSpan = document.createElement('span');
-          charSpan.className = 'cosmic-char';
-          charSpan.textContent = char;
-          wordSpan.appendChild(charSpan);
-          chars.push(charSpan);
-        }
-        element.appendChild(wordSpan);
-      });
-      return chars;
-    }
-
-    const sections = ['about', 'history', 'projects', 'hobbies', 'contact'];
-
-    sections.forEach((secId) => {
-      const sectionEl = document.getElementById(secId);
-      if (!sectionEl) return;
-
-      const titleEl = sectionEl.querySelector('.section-title');
-      const titleChars = titleEl ? splitTextToChars(titleEl) : [];
-      const singularity = document.getElementById(`singularity-${secId}`);
-      const shockwave = document.getElementById(`shockwave-${secId}`);
-      const radialglow = document.getElementById(`radialglow-${secId}`);
-      const flamering = document.getElementById(`flamering-${secId}`);
-      const mandala = document.getElementById(`mandala-${secId}`);
-      const mandalaLines = mandala ? mandala.querySelectorAll('.mandala-stroke-line') : [];
-
-      const mainBlocks = sectionEl.querySelectorAll(
-        '.section-lead, .narrative-headline, .narrative-body p, .metrics-strip, .skills-editorial-grid, .history-entry, .project-case-study, .hobby-article, .editorial-contact-split'
-      );
-
-      // Initial state
-      if (singularity) gsap.set(singularity, { scale: 0, opacity: 0 });
-      if (shockwave) gsap.set(shockwave, { scale: 0.1, opacity: 0 });
-      if (radialglow) gsap.set(radialglow, { scale: 0.2, opacity: 0 });
-      if (flamering) gsap.set(flamering, { scale: 1.4, opacity: 0 });
-      if (mandala) gsap.set(mandala, { opacity: 0 });
-      if (mandalaLines.length) gsap.set(mandalaLines, { strokeDashoffset: 1200 });
-
-      // Creation Trigger (When section enters viewport)
-      ScrollTrigger.create({
-        trigger: sectionEl,
-        start: 'top 85%',
-        end: 'bottom 15%',
-        onEnter: () => triggerCreation(false),
-        onEnterBack: () => triggerCreation(true),
-        onLeave: () => triggerDestruction(false),
-        onLeaveBack: () => triggerDestruction(true)
-      });
-
-      function triggerCreation(isReverse) {
-        const rect = sectionEl.getBoundingClientRect();
-        const cx = rect.left + rect.width * 0.55;
-        const cy = Math.max(100, Math.min(window.innerHeight - 100, rect.top + 200));
-
-        if (cosmicCanvasEngine) {
-          cosmicCanvasEngine.spawnInwardDust(cx, cy, 32);
-        }
-
-        // Singularity point of warm light bursts
-        if (singularity) {
-          gsap.killTweensOf(singularity);
-          gsap.fromTo(singularity,
-            { scale: 0, opacity: 0 },
-            { scale: 1.8, opacity: 1, duration: 0.45, ease: 'power2.out', onComplete: () => {
-              gsap.to(singularity, { scale: 0, opacity: 0, duration: 0.35, ease: 'power2.in' });
-            }}
-          );
-        }
-
-        // Expanding ring pulse & radial glow (Big Bang / Seed Sprouting)
-        if (shockwave) {
-          gsap.killTweensOf(shockwave);
-          gsap.fromTo(shockwave,
-            { scale: 0.1, opacity: 0.9 },
-            { scale: 2.5, opacity: 0, duration: 1, ease: 'power2.out' }
-          );
-        }
-        if (radialglow) {
-          gsap.killTweensOf(radialglow);
-          gsap.fromTo(radialglow,
-            { scale: 0.2, opacity: 0.8 },
-            { scale: 2.2, opacity: 0, duration: 1.1, ease: 'power2.out' }
-          );
-        }
-
-        // Thin orange mandala & spiral lines draw in via stroke-dashoffset
-        if (mandala) {
-          gsap.killTweensOf(mandala);
-          gsap.to(mandala, { opacity: 0.65, duration: 0.3 });
-          if (mandalaLines.length) {
-            gsap.fromTo(mandalaLines,
-              { strokeDashoffset: 1200 },
-              { strokeDashoffset: 0, duration: 1.2, ease: 'power2.out', onComplete: () => {
-                gsap.to(mandala, { opacity: 0.18, duration: 0.6 });
-              }}
-            );
-          }
-        }
-
-        // Heading SplitText characters stagger in from random offsets
-        if (titleChars.length) {
-          titleChars.forEach((char) => {
-            gsap.killTweensOf(char);
-            gsap.fromTo(char,
-              {
-                x: (Math.random() - 0.5) * 140,
-                y: (Math.random() - 0.5) * 100,
-                rotation: (Math.random() - 0.5) * 60,
-                scale: 0.6,
-                filter: 'blur(18px)',
-                opacity: 0
-              },
-              {
-                x: 0,
-                y: 0,
-                rotation: 0,
-                scale: 1,
-                filter: 'blur(0px)',
-                opacity: 1,
-                duration: 0.9 + Math.random() * 0.3,
-                ease: 'power3.out'
-              }
-            );
-          });
-        }
-
-        // Content blocks assemble from scale 0.6, blur 20px -> 0
-        if (mainBlocks.length) {
-          gsap.killTweensOf(mainBlocks);
-          gsap.fromTo(mainBlocks,
-            { scale: 0.75, filter: 'blur(16px)', opacity: 0, y: isReverse ? -40 : 40 },
-            {
-              scale: 1,
-              filter: 'blur(0px)',
-              opacity: 1,
-              y: 0,
-              stagger: 0.06,
-              duration: 0.65,
-              ease: 'power3.out'
-            }
-          );
-        }
-      }
-
-      function triggerDestruction(isReverse) {
-        const rect = sectionEl.getBoundingClientRect();
-        const cx = rect.left + rect.width * 0.55;
-        const cy = Math.max(100, Math.min(window.innerHeight - 100, rect.top + 200));
-
-        if (cosmicCanvasEngine) {
-          cosmicCanvasEngine.spawnNatarajaEmbers(cx, cy, 30);
-        }
-
-        // Contracting flame ring
-        if (flamering) {
-          gsap.killTweensOf(flamering);
-          gsap.fromTo(flamering,
-            { scale: 1.4, opacity: 0.9 },
-            { scale: 0.15, opacity: 0, duration: 0.75, ease: 'power2.in' }
-          );
-        }
-
-        // Title chars shatter like ash
-        if (titleChars.length) {
-          titleChars.forEach((char) => {
-            gsap.killTweensOf(char);
-            gsap.to(char, {
-              x: (Math.random() - 0.5) * 120,
-              y: isReverse ? 60 : -60,
-              rotation: (Math.random() - 0.5) * 50,
-              scale: 0.7,
-              filter: 'blur(16px)',
-              opacity: 0,
-              duration: 0.75,
-              ease: 'power2.in'
-            });
-          });
-        }
-
-        // Content dissolves and drifts out while keeping paragraph text level.
-        if (mainBlocks.length) {
-          mainBlocks.forEach((block, idx) => {
-            gsap.killTweensOf(block);
-            const dirX = idx % 2 === 0 ? -120 : 120;
-            const dirY = isReverse ? 90 : -90;
-            gsap.to(block, {
-              x: dirX,
-              y: dirY,
-              rotation: 0,
-              skewX: 0,
-              filter: 'blur(18px)',
-              opacity: 0,
-              duration: 0.55,
-              ease: 'power2.inOut'
-            });
-          });
-        }
-      }
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     8. DETAILED & MORE ANIMATIONS ON HOVER AND CLICKS
-     -------------------------------------------------------------------------- */
-  function initInteractiveInteractions() {
-    // 3D Magnetic card tilt on hover
-    const tiltItems = document.querySelectorAll(
-      '.project-case-study, .metric-cell, .history-entry, .hobby-article, .contact-email-card'
-    );
-
-    tiltItems.forEach((el) => {
-      el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        if (window.gsap) {
-          gsap.to(el, {
-            rotateY: x * 0.05,
-            rotateX: -y * 0.05,
-            duration: 0.25,
-            ease: 'power1.out',
-            transformPerspective: 900
-          });
-        }
-      });
-
-      el.addEventListener('mouseleave', () => {
-        if (window.gsap) {
-          gsap.to(el, {
-            rotateY: 0,
-            rotateX: 0,
-            duration: 0.45,
-            ease: 'elastic.out(1, 0.4)'
-          });
-        }
-      });
-
-      el.addEventListener('click', () => {
-        if (window.gsap) {
-          gsap.fromTo(el, { scale: 0.96 }, { scale: 1, duration: 0.35, ease: 'back.out(2)' });
-        }
-      });
-    });
-
-    // Ambient floating embers cursor follower
-    let lastMoveTime = 0;
-    window.addEventListener('pointermove', (e) => {
-      const now = performance.now();
-      if (now - lastMoveTime > 45 && cosmicCanvasEngine) {
-        lastMoveTime = now;
-        cosmicCanvasEngine.spawnInwardDust(e.clientX, e.clientY, 1);
-      }
-    });
-  }
-
-  /* --------------------------------------------------------------------------
-     9. INITIALIZATION LIFECYCLE
+     7. INITIALIZATION LIFECYCLE
      -------------------------------------------------------------------------- */
   function init() {
     populatePortfolioContent();
-    initLoadingSequence();
+    initWheelIntro();
     initScrollWheelEngine();
+    initCelestialDustCanvas();
     initContactInteractions();
-    initCosmicCanvasEngine();
-    initCosmicCreationDestruction();
-    initInteractiveInteractions();
+    initScrollTriggerSequences();
   }
 
   if (document.readyState === 'loading') {

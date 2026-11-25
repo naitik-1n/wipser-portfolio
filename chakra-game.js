@@ -12,7 +12,7 @@
   const resize = () => { const r = canvas.getBoundingClientRect(); dpr = Math.min(devicePixelRatio || 1, 2); w = r.width; h = r.height; canvas.width = w*dpr; canvas.height = h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
   new ResizeObserver(resize).observe(canvas); resize();
   const center = () => ({x:w/2,y:h/2});
-  function begin(){ health=100; score=0; angle=-Math.PI/2; threats=[]; shots=[]; bursts=[]; spawn=0; running=true; last=performance.now(); start.textContent='Restart'; message.textContent='The cycle is under attack. Hold Space to fire.'; updateHud(); requestAnimationFrame(loop); }
+  function begin(){ health=100; score=0; angle=-Math.PI/2; threats=[]; shots=[]; bursts=[]; spawn=0; running=true; last=performance.now(); start.textContent='Restart'; message.textContent='Targets are approaching. Hold Space to fire.'; updateHud(); requestAnimationFrame(loop); }
   function updateHud(){healthEl.textContent=health+'%';scoreEl.textContent=String(score).padStart(2,'0');}
   function spawnThreat(){const c=center(), a=Math.random()*Math.PI*2, r=Math.max(w,h)*.58; threats.push({x:c.x+Math.cos(a)*r,y:c.y+Math.sin(a)*r,angle:Math.atan2(c.y-(c.y+Math.sin(a)*r),c.x-(c.x+Math.cos(a)*r)),hp:1,phase:Math.random()*6, speed:24+Math.min(score,25)*1.2});}
   function fire(){const c=center(); shots.push({x:c.x+Math.cos(angle)*50,y:c.y+Math.sin(angle)*50,a:angle,life:.8}); bursts.push({x:c.x+Math.cos(angle)*48,y:c.y+Math.sin(angle)*48,t:.16});}
@@ -29,7 +29,7 @@
     shots.forEach(s=>{s.x+=Math.cos(s.a)*680*dt;s.y+=Math.sin(s.a)*680*dt;s.life-=dt;ctx.fillStyle='#ffcc00';ctx.shadowBlur=12;ctx.shadowColor='#ff7b00';ctx.beginPath();ctx.arc(s.x,s.y,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;for(const t of threats){if(!t.dead&&Math.hypot(s.x-t.x,s.y-t.y)<19){t.dead=true;s.life=0;score++;bursts.push({x:t.x,y:t.y,t:.45});updateHud();break;}}});
     threats=threats.filter(t=>!t.dead);shots=shots.filter(s=>s.life>0&&s.x>-20&&s.x<w+20&&s.y>-20&&s.y<h+20);
     bursts.forEach(b=>{b.t-=dt;const p=1-b.t/(b.red?.7:.45);ctx.strokeStyle=b.red?`rgba(242,40,15,${1-p})`:`rgba(255,170,30,${1-p})`;ctx.lineWidth=3;ctx.beginPath();ctx.arc(b.x,b.y,p*(b.red?90:45),0,Math.PI*2);ctx.stroke();});bursts=bursts.filter(b=>b.t>0);
-    if(health<=0){running=false;message.textContent='The core has fallen. Restart and defend the cycle.';start.textContent='Play again';return;} requestAnimationFrame(loop);
+    if(health<=0){running=false;message.textContent='Game over. Restart to play again.';start.textContent='Play again';return;} requestAnimationFrame(loop);
   }
   document.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight',' '].includes(e.key)){e.preventDefault();keys.add(e.key);}});document.addEventListener('keyup',e=>keys.delete(e.key));start.addEventListener('click',begin);
   let pointerX=null;canvas.addEventListener('pointerdown',e=>{pointerX=e.clientX;canvas.setPointerCapture(e.pointerId);fire();});canvas.addEventListener('pointermove',e=>{if(pointerX!==null){angle+=(e.clientX-pointerX)*.012;pointerX=e.clientX;}});canvas.addEventListener('pointerup',()=>pointerX=null);canvas.addEventListener('pointercancel',()=>pointerX=null);
